@@ -7,7 +7,7 @@ mkdir -p "$COMMANDS_DIR"
 
 
 # Download commands from GitHub
-REPO_URL="https://raw.githubusercontent.com/brennercruvinel/CCPlugins/main/commands"
+REPO_URL="https://raw.githubusercontent.com/manastalukdar/CCPlugins/running/commands"
 COMMANDS=(
     "cleanproject.md"
     "commit.md"
@@ -22,17 +22,23 @@ COMMANDS=(
     "implement.md"
     "make-it-pretty.md"
     "predict-issues.md"
+    "refactor.md"
     "remove-comments.md"
     "review.md"
     "scaffold.md"
     "security-scan.md"
+    "session-current.md"
     "session-end.md"
+    "session-help.md"
+    "session-list.md"
+    "session-resume.md"
     "session-start.md"
+    "session-update.md"
+    "sessions-init.md"
     "test.md"
     "todos-to-issues.md"
-    "undo.md"
     "understand.md"
-    "refactor.md"
+    "undo.md"
 )
 
 # Check for existing commands

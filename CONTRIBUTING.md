@@ -6,10 +6,12 @@ Thanks for your interest in improving CCPlugins! This project helps developers s
 
 We keep it simple:
 
-1. **`main`** - Stable code, always working
-2. **`add/your-feature`** - Any contribution (new command, fix, docs)
+1. **`main`** - synced with `https://github.com/brennercruvinel/CCPlugins`
+2. **`running`** - stable code, always working. My daily driver.
+3. **`add/your-feature`** - Any contribution (new command, fix, docs)
 
-### Workflow Example:
+### Workflow Example
+
 ```bash
 git checkout -b add/new-command
 # make your changes
@@ -20,19 +22,24 @@ git push origin add/new-command
 ## How to Contribute
 
 ### 1. New Commands
+
 We welcome commands that solve real developer problems. Good commands:
+
 - Save at least 5 minutes of repetitive work
 - Are language/framework agnostic when possible
 - Use context analysis rather than rigid rules
 
 **To add a command:**
+
 1. Create `commands/yourcommand.md`
 2. Follow the existing command structure
 3. Test it solves a real problem
 4. Submit a PR with a clear use case
 
 ### 2. Improving Existing Commands
+
 Found a bug or have an enhancement? Great! Please:
+
 - Describe the current vs desired behavior
 - Include examples if relevant
 - Keep changes focused and minimal
@@ -40,7 +47,9 @@ Found a bug or have an enhancement? Great! Please:
 - Use extended thinking for sophisticated analysis scenarios
 
 ### 3. Bug Reports
+
 Open an issue with:
+
 - What command failed
 - What you expected
 - Error message (if any)
@@ -63,7 +72,9 @@ python install.py  # Test your changes
 5. **Quick merges** - If it works and helps, we merge it
 
 ### Commit Messages
+
 Keep them simple:
+
 - `add: command-name` for new commands
 - `fix: what you fixed` for fixes
 - `docs: what you updated` for documentation
@@ -83,20 +94,26 @@ Keep them simple:
 For complex commands, consider implementing:
 
 ### Validation Phases
+
 Commands like `/refactor` and `/implement` should include validation:
-```
+
+```plaintext
 /refactor validate  # Check completeness, find loose ends
 /implement validate # Verify integration completeness
 ```
 
 ### Extended Thinking
+
 Use `<think>` blocks for sophisticated analysis in:
+
 - Complex architectural refactoring
 - Security vulnerability detection
 - Multi-step problem solving
 
 ### Command Integration
+
 Minimal, pragmatic suggestions for natural workflow:
+
 - Suggest `/test` after major changes
 - Suggest `/commit` at logical checkpoints
 - Avoid over-engineering command chains
@@ -104,6 +121,7 @@ Minimal, pragmatic suggestions for natural workflow:
 ## What We're Looking For
 
 **Yes:**
+
 - Commands that automate tedious tasks
 - Cross-platform compatibility improvements  
 - Real-world workflow optimizations
@@ -111,6 +129,7 @@ Minimal, pragmatic suggestions for natural workflow:
 - Pragmatic command integration
 
 **No:**
+
 - Framework-specific tools (unless very popular)
 - Commands requiring external dependencies
 - Overly complex multi-step wizards
@@ -121,7 +140,8 @@ Minimal, pragmatic suggestions for natural workflow:
 When creating issues, please use these templates:
 
 ### Bug Report
-```
+
+```plaintext
 **Command:** /command-name
 **Expected behavior:** What should happen
 **Actual behavior:** What actually happened
@@ -135,7 +155,8 @@ When creating issues, please use these templates:
 ```
 
 ### Feature Request
-```
+
+```plaintext
 **Problem:** What repetitive task are you doing?
 **Solution:** How would the command help?
 **Time saved:** Estimate minutes saved per use
@@ -153,6 +174,7 @@ When creating issues, please use these templates:
 ## Continuous Improvement
 
 CCPlugins is actively maintained. We:
+
 - Test commands thoroughly before release
 - Refine based on real usage patterns
 - Fix issues as they're discovered

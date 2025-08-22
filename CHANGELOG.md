@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to CCPlugins will be documented in this file.
+All notable changes to Claude DevStudio will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
 - **Extended Thinking Mode:**
   - Added to `/refactor` for complex architectural refactoring analysis
   - Added to `/security-scan` for sophisticated vulnerability detection
@@ -21,11 +22,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Pragmatic integration without over-engineering
 
 ### Removed
+
 - `/human-mode` command - Functionality was redundant with Claude's natural adaptability
 
 ## [2.5.2] - 2025-08-02
 
 ### Added
+
 - **Session Persistence for Complex Commands:**
   - `/implement`, `/refactor`, `/fix-todos`, `/scaffold`, `/security-scan`, `/fix-imports` now maintain state across Claude sessions
   - Session files stored in command-specific folders for better organization
@@ -39,12 +42,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Removed dependencies on bash-specific features
 
 ### Enhanced
+
 - **Command Improvements:**
   - Reduced verbosity while maintaining clarity (73% reduction in `/implement`, 56% in `/refactor`)
   - Added mandatory plan creation before execution in complex commands
   - Improved error handling and recovery strategies
   - Better integration between related commands
-
+https://github.com/manastalukdar/claude-devstudio
 - **Documentation:**
   - Added continuous development notice highlighting active maintenance
   - Enhanced architecture description with visual flow diagrams
@@ -57,6 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Protects user ownership of all code changes
 
 ### Fixed
+
 - **Critical Path Resolution Fix:**
   - Fixed Claude LS tool not recognizing hidden folders starting with dot (.)
   - Changed from hidden `.claude/` folder to visible command-specific folders
@@ -71,6 +76,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.5.1] - 2025-08-02
 
 ### Added
+
 - **New Command:**
   - `/refactor` - Intelligent code restructuring engine with cross-session continuity
     - Strategic thinking process for safe refactoring decisions
@@ -78,9 +84,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Auto-detection and resume capabilities across context windows
     - Support for multiple refactoring modes (conservative, balanced, architectural, migration)
     - Comprehensive rollback and recovery options
-    - Integration with existing CCPlugins workflow
+    - Integration with existing Claude DevStudio workflow
 
 ### Enhanced
+
 - **Documentation:**
   - Updated README with `/refactor` command and new workflow examples
   - Added refactoring metrics to performance table
@@ -89,6 +96,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.5.0] - 2025-08-02
 
 ### Added
+
 - **New Command:**
   - `/implement` - Smart implementation engine that imports and adapts code from any source (GitHub, CodePen, local folders, or multiple references)
     - Intelligent dependency resolution using existing packages
@@ -102,6 +110,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Based on Anthropic's "think" tool research showing 50%+ improvement in complex tasks
 
 ### Enhanced
+
 - **Dependency Management:**
   - All commands now check existing packages before suggesting new dependencies
   - Smart mapping of source dependencies to existing project packages
@@ -115,6 +124,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.4.2] - 2025-08-01
 
 ### Added
+
 - **New Commands:**
   - `/create-todos` - Intelligently creates contextual TODO comments in code based on recent operations
   - `/fix-todos` - Analyzes and implements TODO fixes with full context understanding
@@ -127,6 +137,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Protects user identity and maintains code ownership
 
 ### Enhanced
+
 - **`/contributing` Command:**
   - Full context awareness for different development scenarios
   - Mandatory pre-flight checks before GitHub operations
@@ -156,12 +167,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Build and test verification before committing
 
 ### Fixed
+
 - Removed specific build tool references from `/test` for better framework agnosticism
 - Updated all git-related commands with security instructions
 
 ## [2.0.0] - 2025-08-01
 
 ### Added
+
 - **New Commands (5):**
   - `/security-scan` - Comprehensive security analysis with dependency health checking
   - `/scaffold` - Intelligent feature scaffolding with auto-generated tests and docs
@@ -183,6 +196,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Streamlined CI/CD command chaining
 
 ### Changed
+
 - **Performance Optimizations:**
   - Reduced verbosity across all commands for senior developer efficiency
   - Native tool usage for improved performance on large codebases
@@ -203,6 +217,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Streamlined installation and usage instructions
 
 ### Enhanced
+
 - **Security:**
   - Input validation and sanitization across all commands
   - Safe file operations with proper validation
@@ -216,6 +231,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Improvement suggestions distributed across relevant analysis commands
 
 ### Fixed
+
 - Session management system now uses native CLAUDE.md instead of parallel tracking
 - Commands no longer use framework-specific detection, rely on intelligent analysis
 - Removed all hardcoded technology references for true framework agnosticism
@@ -223,6 +239,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - TodoWrite integration prevents lost progress in multi-step operations
 
 ### Removed
+
 - `/context-cache` - Removed as Claude Code already maintains context automatically
 - `/cleanup-types` - Merged functionality into `/make-it-pretty`
 - Custom backup systems replaced with git checkpoint safety
@@ -231,6 +248,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.6.0] - 2025-01-25
 
 ### Added
+
 - Basic testing with Kimi K2 compatibility
 - Cross-platform installation support (Windows/Mac/Linux)
 - 11 productivity commands for common development workflows
@@ -247,15 +265,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `/session-end` - Summarize accomplishments and prepare handoff notes
 
 ### Changed
+
 - Improved README with better examples and time-saving metrics
 - Enhanced installation process with automatic backup of existing commands
 
 ### Fixed
+
 - Installation script compatibility across different operating systems
 
 ## [1.5.0] - 2025-12-15
 
 ### Added
+
 - Initial release with core command set
 - Python-based installer
 - Shell script for Unix-like systems

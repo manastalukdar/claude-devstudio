@@ -1,14 +1,14 @@
 #!/bin/bash
-# CCPlugins Uninstaller for Mac/Linux
+# Claude DevStudio Uninstaller for Mac/Linux
 
 set -e
 
-echo "CCPlugins Uninstaller"
-echo "===================="
+echo "Claude DevStudio Uninstaller"
+echo "============================"
 
 COMMANDS_DIR="$HOME/.claude/commands"
 
-# List of CCPlugins commands (including old ones for compatibility)
+# List of Claude DevStudio commands (including old ones for compatibility)
 COMMANDS=(
     "cleanproject.md"
     "cleanup-types.md"     # Old command (removed)
@@ -47,12 +47,12 @@ for cmd in "${COMMANDS[@]}"; do
 done
 
 if [ $INSTALLED -eq 0 ]; then
-    echo "[INFO] No CCPlugins commands found."
+    echo "[INFO] No Claude DevStudio commands found."
     exit 0
 fi
 
-echo "[FOUND] $INSTALLED CCPlugins commands installed"
-read -p "Remove all CCPlugins commands? (y/N): " -n 1 -r
+echo "[FOUND] $INSTALLED Claude DevStudio commands installed"
+read -p "Remove all Claude DevStudio commands? (y/N): " -n 1 -r
 echo
 
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
@@ -84,4 +84,4 @@ if [ -d "$CACHE_DIR" ] || [ -d "$BACKUP_DIR" ]; then
 fi
 
 echo "[SUCCESS] Uninstalled $REMOVED commands"
-echo "Thanks for trying CCPlugins!"
+echo "Thanks for trying Claude DevStudio!"

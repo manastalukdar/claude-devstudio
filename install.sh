@@ -1,5 +1,5 @@
 #!/bin/bash
-# CCPlugins Installer for Mac/Linux
+# Claude DevStudio Installer for Mac/Linux
 
 set -e
 COMMANDS_DIR="$HOME/.claude/commands"
@@ -7,7 +7,7 @@ mkdir -p "$COMMANDS_DIR"
 
 
 # Download commands from GitHub
-REPO_URL="https://raw.githubusercontent.com/manastalukdar/CCPlugins/running/commands"
+REPO_URL="https://raw.githubusercontent.com/manastalukdar/claude-devstudio/running/commands"
 COMMANDS=(
     "cleanproject.md"
     "commit.md"
@@ -64,5 +64,5 @@ echo "Downloading commands..."
 for cmd in "${COMMANDS[@]}"; do
     curl -sSL "$REPO_URL/$cmd" -o "$COMMANDS_DIR/$cmd"
 done
-echo "CCPlugins installed to $COMMANDS_DIR"
+echo "Claude DevStudio installed to $COMMANDS_DIR"
 echo "Type / in Claude Code to see available commands"

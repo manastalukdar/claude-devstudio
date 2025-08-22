@@ -1,6 +1,6 @@
-# Contributing to CCPlugins
+# Contributing to Claude DevStudio
 
-Thanks for your interest in improving CCPlugins! This project helps developers save time with practical automation.
+Thanks for your interest in improving Claude DevStudio! This development studio helps developers save 4-5 hours per week with professional automation.
 
 ## Branch Strategy
 
@@ -58,8 +58,8 @@ Open an issue with:
 ## Development Setup
 
 ```bash
-git clone https://github.com/brennercruvinel/CCPlugins
-cd CCPlugins
+git clone https://github.com/manastalukdar/claude-devstudio
+cd claude-devstudio
 python install.py  # Test your changes
 ```
 
@@ -173,7 +173,7 @@ When creating issues, please use these templates:
 
 ## Continuous Improvement
 
-CCPlugins is actively maintained. We:
+Claude DevStudio is actively maintained. We:
 
 - Test commands thoroughly before release
 - Refine based on real usage patterns

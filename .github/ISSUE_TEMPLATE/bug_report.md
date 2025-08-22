@@ -12,6 +12,7 @@ A clear and concise description of what the bug is.
 
 **To Reproduce**
 Steps to reproduce the behavior:
+
 1. Go to '...'
 2. Run command '...'
 3. See error
@@ -23,9 +24,10 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Environment:**
+
  - OS: [e.g. macOS 14.0]
  - Python version: [e.g. 3.11]
- - CCPlugins version: [e.g. 1.6.0]
+ - Claude DevStudio version: [e.g. 1.6.0]
 
 **Additional context**
 Add any other context about the problem here.

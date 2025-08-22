@@ -1,6 +1,6 @@
 # Undo Last Operation
 
-I'll help you rollback the last destructive operation performed by CCPlugins commands.
+I'll help you rollback the last destructive operation performed by Claude DevStudio commands.
 
 ## Recovery Options
 

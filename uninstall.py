@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-# CCPlugins Uninstaller
+# Claude DevStudio Uninstaller
 
 """
-CCPlugins Uninstaller
+Claude DevStudio Uninstaller
 Removes command files from ~/.claude/commands/
 """
 
@@ -43,7 +43,7 @@ def main():
     
     commands_dir = Path.home() / ".claude" / "commands"
     
-    print("CCPlugins Uninstaller")
+    print("Claude DevStudio Uninstaller")
     print("=" * 40)
     
     if not commands_dir.exists():
@@ -57,11 +57,11 @@ def main():
             installed += 1
     
     if installed == 0:
-        print("[INFO] No CCPlugins commands found.")
+        print("[INFO] No Claude DevStudio commands found.")
         return
     
-    print(f"[FOUND] {installed} CCPlugins commands installed")
-    response = input("\nRemove all CCPlugins commands? (y/N): ")
+    print(f"[FOUND] {installed} Claude DevStudio commands installed")
+    response = input("\nRemove all Claude DevStudio commands? (y/N): ")
     
     if response.lower() != 'y':
         print("[CANCELLED] Uninstall cancelled.")
@@ -94,7 +94,7 @@ def main():
                 print("  - Removed backups directory")
     
     print(f"\n[SUCCESS] Uninstalled {removed} commands")
-    print("Thanks for trying CCPlugins!")
+    print("Thanks for trying Claude DevStudio!")
 
 if __name__ == "__main__":
     try:

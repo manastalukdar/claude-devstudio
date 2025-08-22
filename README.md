@@ -1,8 +1,8 @@
-# Claude Code Plugins
+# Claude DevStudio
 
-## What is `CCPlugins`?
+## What is `Claude DevStudio`?
 
-Professional commands for Claude Code CLI that save 2-3 hours per week on repetitive development tasks.
+Professional development studio for Claude Code CLI that saves 4-5 hours per week on repetitive development tasks.
 
 ### The Problem
 
@@ -11,9 +11,9 @@ Professional commands for Claude Code CLI that save 2-3 hours per week on repeti
 🤪 "Please add a button" → Complete UI framework rewrite  
 😭 Every conversation → "Act like a senior engineer who doesn't overengineer"
 
-🚧 **Active Development Notice**: CCPlugins is continuously evolving based on real-world usage. We thoroughly test each command and refine them as we discover gaps and opportunities. This ensures you're always getting battle-tested, production-ready tools that solve actual developer problems.
+🚧 **Active Development Notice**: Claude DevStudio is continuously evolving based on real-world usage. We thoroughly test each command and refine them as we discover gaps and opportunities. This ensures you're always getting battle-tested, production-ready tools that solve actual developer problems.
 
-CCPlugins is a curated set of 29 professional commands that extend Claude Code CLI with enterprise-grade development workflows. These commands leverage Claude's contextual understanding while providing structured, predictable outcomes optimized for Opus 4 and Sonnet 4 models.
+Claude DevStudio is a comprehensive development environment featuring 29 professional commands that extend Claude Code CLI with enterprise-grade workflows. This intelligent development studio leverages Claude's contextual understanding while providing structured, predictable outcomes optimized for Opus 4 and Sonnet 4 models.
 
 ## Quick Links
 
@@ -31,7 +31,7 @@ CCPlugins is a curated set of 29 professional commands that extend Claude Code C
 **Mac/Linux:**
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/brennercruvinel/CCPlugins/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/manastalukdar/claude-devstudio/main/install.sh | bash
 ```
 
 **Windows/Cross-platform:**
@@ -43,8 +43,8 @@ python install.py
 ### Manual Install
 
 ```bash
-git clone https://github.com/brennercruvinel/CCPlugins.git
-cd CCPlugins
+git clone https://github.com/manastalukdar/claude-devstudio.git
+cd claude-devstudio
 python install.py
 ```
 
@@ -174,7 +174,7 @@ src/
 
 ### High-Level Architecture
 
-CCPlugins transforms Claude Code CLI into an intelligent development assistant through a sophisticated yet elegant architecture:
+Claude DevStudio transforms Claude Code CLI into an intelligent development assistant through a sophisticated yet elegant architecture:
 
 ```plaintext
 Developer → /command → Claude Code CLI → Command Definition → Intelligent Execution
@@ -337,7 +337,7 @@ Custom commands appear with a `(user)` tag in Claude Code CLI to distinguish the
 
 ## Performance Metrics
 
-| Task | Manual Time | With CCPlugins | Time Saved |
+| Task | Manual Time | With Claude DevStudio | Time Saved |
 |------|-------------|----------------|------------|
 | Security analysis | 45-60 min | 3-5 min | ~50 min |
 | Architecture review | 30-45 min | 5-8 min | ~35 min |
@@ -350,7 +350,7 @@ Custom commands appear with a `(user)` tag in Claude Code CLI to distinguish the
 | TODO resolution | 30-45 min | 3-5 min | ~35 min |
 | Code adaptation | 40-60 min | 3-5 min | ~45 min |
 
-**Total: 4-5 hours saved per week with professional-grade analysis**
+**Total: 4-5 hours saved per week with Claude DevStudio's professional-grade analysis**
 
 ## Requirements
 

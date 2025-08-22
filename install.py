@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-# CCPlugins Installer for Windows
+# Claude DevStudio Installer for Windows
 
 """
-CCPlugins Installer
+Claude DevStudio Installer
 Copies command files to ~/.claude/commands/
 """
 
@@ -19,7 +19,7 @@ def main():
     claude_dir = Path.home() / ".claude"
     commands_dest = claude_dir / "commands"
     
-    print("CCPlugins Installer")
+    print("Claude DevStudio Installer")
     print("=" * 40)
     
     # Check source directory exists
@@ -66,7 +66,7 @@ def main():
     print("  1. Open Claude Code CLI")
     print("  2. Type / to see available commands")
     print("  3. Use /cleanproject, /commit, /refactor, etc.")
-    print("\nTip: These commands will save you 6-8 hours per week!")
+    print("\nTip: Claude DevStudio will save you 4-5 hours per week!")
 
 if __name__ == "__main__":
     try:

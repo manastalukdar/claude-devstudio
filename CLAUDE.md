@@ -5,11 +5,11 @@
  https://opensource.org/licenses/MIT
 -->
 
-# CCPlugins - Professional Claude Code Commands
+# Claude DevStudio - Professional Claude Code Commands
 
 ## Project Overview
 
-CCPlugins is a comprehensive collection of 29 professional commands for Claude Code CLI that automate repetitive development tasks and provide enterprise-grade workflows. The project extends Claude Code's capabilities with intelligent commands that save 4-5 hours per week through:
+Claude DevStudio is a comprehensive development environment featuring 29 professional commands for Claude Code CLI that automate repetitive development tasks and provide enterprise-grade workflows. This intelligent development studio extends Claude Code's capabilities with intelligent commands that save 4-5 hours per week through:
 
 - **Automated Development Workflows**: Smart commits, testing, formatting, and scaffolding
 - **Code Quality & Security**: Multi-agent analysis, vulnerability scanning, and issue prediction
@@ -97,7 +97,7 @@ The project provides multiple installation methods:
 
 ```bash
 # Mac/Linux
-curl -sSL https://raw.githubusercontent.com/manastalukdar/CCPlugins/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/manastalukdar/claude-devstudio/main/install.sh | bash
 
 # Windows/Cross-platform
 python install.py
@@ -106,8 +106,8 @@ python install.py
 ### Manual Install
 
 ```bash
-git clone https://github.com/manastalukdar/CCPlugins.git
-cd CCPlugins
+git clone https://github.com/manastalukdar/claude-devstudio.git
+cd claude-devstudio
 python install.py
 ```
 
@@ -124,7 +124,7 @@ python install.py
 ### File Structure
 
 ```plaintext
-CCPlugins/
+claude-devstudio/
 ├── commands/              # Command definitions (29 .md files)
 │   ├── session-*.md      # Session management commands
 │   ├── README-sessions.md # Detailed session documentation
@@ -143,7 +143,7 @@ CCPlugins/
 
 Built upon excellent open-source work:
 
-- **CCPlugins by brennercruvinel**: Core command framework and development workflows
+- **CCPlugins by brennercruvinel**: Original command framework and development workflows
 - **claude-sessions by iannuttall**: Session management architecture and patterns
 
 ### Enhanced Capabilities

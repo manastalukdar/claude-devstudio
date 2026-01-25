@@ -347,18 +347,18 @@ Custom skills appear with a `(user)` tag in Claude Code CLI to distinguish them 
 
 ## Performance Metrics
 
-| Task | Manual Time | With Claude DevStudio | Time Saved |
-|------|-------------|----------------|------------|
-| Security analysis | 45-60 min | 3-5 min | ~50 min |
-| Architecture review | 30-45 min | 5-8 min | ~35 min |
-| Feature scaffolding | 25-40 min | 2-3 min | ~30 min |
-| Git commits | 5-10 min | 30 sec | ~9 min |
-| Code cleanup | 20-30 min | 1 min | ~25 min |
-| Import fixing | 15-25 min | 1-2 min | ~20 min |
-| Code review | 20-30 min | 2-4 min | ~20 min |
-| Issue prediction | 60+ min | 5-10 min | ~50 min |
-| TODO resolution | 30-45 min | 3-5 min | ~35 min |
-| Code adaptation | 40-60 min | 3-5 min | ~45 min |
+| Task                | Manual Time | With Claude DevStudio | Time Saved |
+| ------------------- | ----------- | --------------------- | ---------- |
+| Security analysis   | 45-60 min   | 3-5 min               | ~50 min    |
+| Architecture review | 30-45 min   | 5-8 min               | ~35 min    |
+| Feature scaffolding | 25-40 min   | 2-3 min               | ~30 min    |
+| Git commits         | 5-10 min    | 30 sec                | ~9 min     |
+| Code cleanup        | 20-30 min   | 1 min                 | ~25 min    |
+| Import fixing       | 15-25 min   | 1-2 min               | ~20 min    |
+| Code review         | 20-30 min   | 2-4 min               | ~20 min    |
+| Issue prediction    | 60+ min     | 5-10 min              | ~50 min    |
+| TODO resolution     | 30-45 min   | 3-5 min               | ~35 min    |
+| Code adaptation     | 40-60 min   | 3-5 min               | ~45 min    |
 
 **Total: 4-5 hours saved per week with Claude DevStudio's professional-grade analysis**
 

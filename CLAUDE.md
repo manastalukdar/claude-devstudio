@@ -133,14 +133,16 @@ claude-devstudio/
 │   ├── session-start/
 │   │   └── SKILL.md      # Session management skill
 │   └── [28 other skills]
-├── commands/              # Legacy format (deprecated, kept for compatibility)
+├── docs/                  # Documentation and migration guides
+│   ├── sessions.md       # Session management documentation
+│   ├── MIGRATION-PLAN.md # Migration documentation
+│   └── [other docs]
 ├── install.py/.sh        # Installation scripts (installs to ~/.claude/skills/)
 ├── uninstall.py/.sh      # Uninstallation scripts
 ├── README.md             # Main documentation
 ├── CLAUDE.md             # This file - project memory
 ├── AGENTS.md             # AI agent interaction guidelines
 ├── CONTRIBUTING.md       # Contribution guidelines
-├── MIGRATION-PLAN.md     # Migration documentation
 └── LICENSE               # MIT license
 ```
 

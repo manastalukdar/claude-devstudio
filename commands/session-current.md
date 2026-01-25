@@ -7,6 +7,6 @@ Show the current session status by:
    - Calculate and show duration since start
    - Show last few updates
    - Show current goals/tasks
-   - Remind user of available commands
+   - Remind user of available skills
 
 Keep the output concise and informative.

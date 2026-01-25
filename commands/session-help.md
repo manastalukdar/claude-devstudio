@@ -1,10 +1,10 @@
 Show help for the session management system:
 
-## Session Management Commands
+## Session Management Skills
 
 The session system helps document development work for future reference.
 
-### Available Commands:
+### Available Skills:
 
 - `/project:session-start [name]` - Start a new session with optional name
 - `/project:session-update [notes]` - Add notes to current session  

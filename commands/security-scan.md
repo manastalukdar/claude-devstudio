@@ -179,7 +179,7 @@ Continuing remediation...
 - Add AI attribution
 - Log sensitive data
 
-## Command Integration
+## Skill Integration
 
 When appropriate for critical security fixes:
 - `/test` - Verify functionality after security patches

@@ -352,9 +352,9 @@ When you run ANY of these: `/refactor finish`, `/refactor enhance`, `/refactor v
 - Make changes without validation
 - Use emojis in commits, PRs, or git-related content
 
-## Command Integration
+## Skill Integration
 
-When appropriate, I may suggest using other commands:
+When appropriate, I may suggest using other skills:
 - `/test` - After major refactoring to verify functionality
 - `/commit` - At logical checkpoints in the refactoring process
 

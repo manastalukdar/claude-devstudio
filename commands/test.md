@@ -149,7 +149,7 @@ Based on the detected context, I'll choose the optimal approach:
 - Prioritize tests based on session objectives
 - Generate session test report at the end
 
-**Integration with other commands:**
+**Integration with other skills:**
 - After `/test` failures → `/create-todos` to track fixes
 - Complex failures → `/explain-like-senior` for deep analysis
 - Test improvements → `/review` for quality check

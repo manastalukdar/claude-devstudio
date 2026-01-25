@@ -294,7 +294,7 @@ ENHANCEMENT OPPORTUNITIES:
 - Update all affected documentation
 - Create migration guide if breaking changes
 
-## Command Suggestions
+## Skill Suggestions
 
 After implementation milestones, I may suggest:
 - `/test` - To verify the implementation works correctly

@@ -84,7 +84,7 @@ Based on what happened in session:
 4. **Version awareness** - Respect semver in CHANGELOG
 5. **Link updates** - Fix broken internal links
 
-## Integration with Commands
+## Integration with Skills
 
 Works seamlessly with:
 - `/understand` - Get current architecture first
@@ -174,7 +174,7 @@ I can manage:
 - **Completeness** - Verify all sections present
 - **Accuracy** - Compare docs vs actual implementation
 
-### Smart Command Combinations
+### Smart Skill Combinations
 
 **After analyzing code:**
 ```bash

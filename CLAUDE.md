@@ -73,6 +73,7 @@ The project includes a sophisticated session management system that:
 ### Safety-First Design
 
 - Automatic git checkpoints before destructive operations
+- **NEVER use Claude credentials to commit code**: All commits must use the developer's own git credentials
 - No AI attribution in commits or generated content
 - Safe rollback capabilities with clear recovery paths
 
@@ -133,6 +134,7 @@ claude-devstudio/
 ├── uninstall.py/.sh      # Uninstallation scripts
 ├── README.md             # Main documentation
 ├── CLAUDE.md             # This file - project memory
+├── AGENTS.md             # AI agent interaction guidelines
 ├── CONTRIBUTING.md       # Contribution guidelines
 └── LICENSE               # MIT license
 ```

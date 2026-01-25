@@ -1,70 +1,85 @@
 #!/usr/bin/env python3
-# Claude DevStudio Installer for Windows
+# Claude DevStudio Installer
 
 """
 Claude DevStudio Installer
-Copies command files to ~/.claude/commands/
+Copies skill files to ~/.claude/skills/
 """
 
 import os
 import shutil
 import sys
 from pathlib import Path
-from datetime import datetime
 
 def main():
     # Determine paths
     script_dir = Path(__file__).parent.absolute()
-    commands_source = script_dir / "commands"
+    skills_source = script_dir / "skills"
     claude_dir = Path.home() / ".claude"
-    commands_dest = claude_dir / "commands"
-    
+    skills_dest = claude_dir / "skills"
+
     print("Claude DevStudio Installer")
     print("=" * 40)
-    
+
     # Check source directory exists
-    if not commands_source.exists():
-        print(f"[ERROR] Commands directory not found at {commands_source}")
+    if not skills_source.exists():
+        print(f"[ERROR] Skills directory not found at {skills_source}")
         sys.exit(1)
-    
+
+    # Get all skill directories
+    skill_dirs = [d for d in skills_source.iterdir() if d.is_dir()]
+    if not skill_dirs:
+        print(f"[ERROR] No skill directories found in {skills_source}")
+        sys.exit(1)
+
     # Create destination directory
-    commands_dest.mkdir(parents=True, exist_ok=True)
-    print(f"[OK] Target directory: {commands_dest}")
-    
-    # Copy command files
-    command_files = list(commands_source.glob("*.md"))
-    if not command_files:
-        print(f"[ERROR] No .md files found in {commands_source}")
-        sys.exit(1)
-    
-    # Check for existing commands
-    existing_commands = []
-    for file in command_files:
-        dest_file = commands_dest / file.name
-        if dest_file.exists():
-            existing_commands.append(file.name)
-    
-    if existing_commands:
-        print(f"\n[WARNING] Found {len(existing_commands)} existing commands:")
-        for cmd in existing_commands:
-            print(f"  ! {cmd}")
-        
-        response = input("\nOverwrite existing commands? (y/N): ")
+    skills_dest.mkdir(parents=True, exist_ok=True)
+    print(f"[OK] Target directory: {skills_dest}")
+
+    # Check for existing skills
+    existing_skills = []
+    for skill_dir in skill_dirs:
+        dest_skill_dir = skills_dest / skill_dir.name
+        if dest_skill_dir.exists():
+            existing_skills.append(skill_dir.name)
+
+    if existing_skills:
+        print(f"\n[WARNING] Found {len(existing_skills)} existing skills:")
+        for skill in existing_skills[:10]:  # Show first 10
+            print(f"  ! {skill}")
+        if len(existing_skills) > 10:
+            print(f"  ... and {len(existing_skills) - 10} more")
+
+        response = input("\nOverwrite existing skills? (y/N): ")
         if response.lower() != 'y':
             print("[CANCELLED] Installation cancelled.")
-            print("Tip: Use uninstall script first to remove old commands.")
+            print("Tip: Use uninstall script first to remove old skills.")
             sys.exit(0)
-    
-    print(f"\n[INSTALL] Installing {len(command_files)} commands:")
-    for file in command_files:
-        dest_file = commands_dest / file.name
-        shutil.copy2(file, dest_file)
-        print(f"  + {file.name}")
-    
-    print("\n[SUCCESS] Installation complete!")
+
+    print(f"\n[INSTALL] Installing {len(skill_dirs)} skills:")
+    installed_count = 0
+    for skill_dir in skill_dirs:
+        skill_file = skill_dir / "SKILL.md"
+        if not skill_file.exists():
+            print(f"  ⚠ Skipping {skill_dir.name} (no SKILL.md)")
+            continue
+
+        dest_skill_dir = skills_dest / skill_dir.name
+        dest_skill_dir.mkdir(parents=True, exist_ok=True)
+
+        # Copy SKILL.md and any other files in the skill directory
+        for file in skill_dir.iterdir():
+            if file.is_file():
+                dest_file = dest_skill_dir / file.name
+                shutil.copy2(file, dest_file)
+
+        print(f"  + {skill_dir.name}")
+        installed_count += 1
+
+    print(f"\n[SUCCESS] Installation complete! Installed {installed_count} skills.")
     print("\nUsage:")
     print("  1. Open Claude Code CLI")
-    print("  2. Type / to see available commands")
+    print("  2. Type / to see available skills")
     print("  3. Use /cleanproject, /commit, /refactor, etc.")
     print("\nTip: Claude DevStudio will save you 4-5 hours per week!")
 

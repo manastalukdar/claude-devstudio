@@ -3,7 +3,7 @@
 
 """
 Claude DevStudio Uninstaller
-Removes command files from ~/.claude/commands/
+Removes skill directories from ~/.claude/skills/ and legacy command files from ~/.claude/commands/
 """
 
 import os
@@ -11,78 +11,111 @@ import shutil
 from pathlib import Path
 
 def main():
-    # Command files to remove (including old ones for compatibility)
-    commands = [
-        "cleanproject.md",
-        "cleanup-types.md",  # Old command (removed)
-        "commit.md",
-        "context-cache.md",  # Old command (removed)
-        "contributing.md",
-        "create-todos.md",
-        "docs.md",
-        "explain-like-senior.md",
-        "find-todos.md",
-        "fix-imports.md",
-        "fix-todos.md",
-        "format.md",
-        "implement.md",
-        "make-it-pretty.md",
-        "predict-issues.md",
-        "remove-comments.md",
-        "review.md",
-        "scaffold.md",
-        "security-scan.md",
-        "session-end.md",
-        "session-start.md",
-        "test.md",
-        "todos-to-issues.md",
-        "undo.md",
-        "understand.md",
-        "refactor.md"
+    claude_dir = Path.home() / ".claude"
+    skills_dir = claude_dir / "skills"
+    commands_dir = claude_dir / "commands"
+
+    # Skills to remove
+    skills = [
+        "cleanproject",
+        "commit",
+        "contributing",
+        "create-todos",
+        "docs",
+        "explain-like-senior",
+        "find-todos",
+        "fix-imports",
+        "fix-todos",
+        "format",
+        "implement",
+        "make-it-pretty",
+        "predict-issues",
+        "refactor",
+        "remove-comments",
+        "review",
+        "scaffold",
+        "security-scan",
+        "session-current",
+        "session-end",
+        "session-help",
+        "session-list",
+        "session-resume",
+        "session-start",
+        "session-update",
+        "sessions-init",
+        "test",
+        "todos-to-issues",
+        "understand",
+        "undo"
     ]
-    
-    commands_dir = Path.home() / ".claude" / "commands"
-    
+
+    # Legacy command files (for backward compatibility)
+    legacy_commands = [f"{skill}.md" for skill in skills]
+    legacy_commands.extend(["cleanup-types.md", "context-cache.md"])  # Old removed commands
+
     print("Claude DevStudio Uninstaller")
     print("=" * 40)
-    
-    if not commands_dir.exists():
-        print("[INFO] Commands directory not found. Nothing to uninstall.")
+
+    # Check for skills (new format)
+    installed_skills = 0
+    if skills_dir.exists():
+        for skill in skills:
+            if (skills_dir / skill).exists():
+                installed_skills += 1
+
+    # Check for legacy commands (old format)
+    installed_legacy = 0
+    if commands_dir.exists():
+        for cmd in legacy_commands:
+            if (commands_dir / cmd).exists():
+                installed_legacy += 1
+
+    if installed_skills == 0 and installed_legacy == 0:
+        print("[INFO] No Claude DevStudio skills or commands found.")
         return
-    
-    # Count installed commands
-    installed = 0
-    for cmd in commands:
-        if (commands_dir / cmd).exists():
-            installed += 1
-    
-    if installed == 0:
-        print("[INFO] No Claude DevStudio commands found.")
-        return
-    
-    print(f"[FOUND] {installed} Claude DevStudio commands installed")
-    response = input("\nRemove all Claude DevStudio commands? (y/N): ")
-    
+
+    # Show what will be removed
+    if installed_skills > 0:
+        print(f"[FOUND] {installed_skills} Claude DevStudio skills (new format)")
+    if installed_legacy > 0:
+        print(f"[FOUND] {installed_legacy} legacy command files (old format)")
+
+    response = input("\nRemove all Claude DevStudio skills and commands? (y/N): ")
+
     if response.lower() != 'y':
         print("[CANCELLED] Uninstall cancelled.")
         return
-    
-    # Remove commands
-    removed = 0
-    for cmd in commands:
-        cmd_path = commands_dir / cmd
-        if cmd_path.exists():
-            try:
-                os.remove(cmd_path)
-                print(f"  - Removed {cmd}")
-                removed += 1
-            except Exception as e:
-                print(f"  ! Failed to remove {cmd}: {e}")
-    
+
+    # Remove skills (new format)
+    removed_skills = 0
+    if skills_dir.exists():
+        for skill in skills:
+            skill_path = skills_dir / skill
+            if skill_path.exists():
+                try:
+                    shutil.rmtree(skill_path)
+                    print(f"  - Removed skill: {skill}")
+                    removed_skills += 1
+                except Exception as e:
+                    print(f"  ! Failed to remove skill {skill}: {e}")
+
+    # Remove legacy commands (old format)
+    removed_legacy = 0
+    if commands_dir.exists():
+        for cmd in legacy_commands:
+            cmd_path = commands_dir / cmd
+            if cmd_path.exists():
+                try:
+                    os.remove(cmd_path)
+                    print(f"  - Removed legacy command: {cmd}")
+                    removed_legacy += 1
+                except Exception as e:
+                    print(f"  ! Failed to remove {cmd}: {e}")
+
     # Clean up cache and backups if requested
-    cache_dir = Path.home() / ".claude" / ".ccplugins_cache"
-    backup_dir = Path.home() / ".claude" / ".ccplugins_backups"
-    
+    cache_dir = claude_dir / ".ccplugins_cache"
+    backup_dir = claude_dir / ".ccplugins_backups"
+
     if cache_dir.exists() or backup_dir.exists():
         response = input("\nAlso remove cache and backups? (y/N): ")
         if response.lower() == 'y':
@@ -92,8 +125,9 @@ def main():
             if backup_dir.exists():
                 shutil.rmtree(backup_dir)
                 print("  - Removed backups directory")
-    
-    print(f"\n[SUCCESS] Uninstalled {removed} commands")
+
+    total_removed = removed_skills + removed_legacy
+    print(f"\n[SUCCESS] Uninstalled {removed_skills} skills and {removed_legacy} legacy commands ({total_removed} total)")
     print("Thanks for trying Claude DevStudio!")
 
 if __name__ == "__main__":

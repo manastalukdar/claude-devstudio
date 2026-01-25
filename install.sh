@@ -2,67 +2,69 @@
 # Claude DevStudio Installer for Mac/Linux
 
 set -e
-COMMANDS_DIR="$HOME/.claude/commands"
-mkdir -p "$COMMANDS_DIR"
+SKILLS_DIR="$HOME/.claude/skills"
+mkdir -p "$SKILLS_DIR"
 
-
-# Download commands from GitHub
-REPO_URL="https://raw.githubusercontent.com/manastalukdar/claude-devstudio/running/commands"
-COMMANDS=(
-    "cleanproject.md"
-    "commit.md"
-    "contributing.md"
-    "create-todos.md"
-    "docs.md"
-    "explain-like-senior.md"
-    "find-todos.md"
-    "fix-imports.md"
-    "fix-todos.md"
-    "format.md"
-    "implement.md"
-    "make-it-pretty.md"
-    "predict-issues.md"
-    "refactor.md"
-    "remove-comments.md"
-    "review.md"
-    "scaffold.md"
-    "security-scan.md"
-    "session-current.md"
-    "session-end.md"
-    "session-help.md"
-    "session-list.md"
-    "session-resume.md"
-    "session-start.md"
-    "session-update.md"
-    "sessions-init.md"
-    "test.md"
-    "todos-to-issues.md"
-    "understand.md"
-    "undo.md"
+# Download skills from GitHub
+REPO_URL="https://raw.githubusercontent.com/manastalukdar/claude-devstudio/running/skills"
+SKILLS=(
+    "cleanproject"
+    "commit"
+    "contributing"
+    "create-todos"
+    "docs"
+    "explain-like-senior"
+    "find-todos"
+    "fix-imports"
+    "fix-todos"
+    "format"
+    "implement"
+    "make-it-pretty"
+    "predict-issues"
+    "refactor"
+    "remove-comments"
+    "review"
+    "scaffold"
+    "security-scan"
+    "session-current"
+    "session-end"
+    "session-help"
+    "session-list"
+    "session-resume"
+    "session-start"
+    "session-update"
+    "sessions-init"
+    "test"
+    "todos-to-issues"
+    "understand"
+    "undo"
 )
 
-# Check for existing commands
+# Check for existing skills
 EXISTING=0
-for cmd in "${COMMANDS[@]}"; do
-    if [ -f "$COMMANDS_DIR/$cmd" ]; then
+for skill in "${SKILLS[@]}"; do
+    if [ -d "$SKILLS_DIR/$skill" ]; then
         ((EXISTING++))
     fi
 done
 
 if [ $EXISTING -gt 0 ]; then
-    echo "[WARNING] Found $EXISTING existing commands"
-    read -p "Overwrite existing commands? (y/N): " -n 1 -r
+    echo "[WARNING] Found $EXISTING existing skills"
+    read -p "Overwrite existing skills? (y/N): " -n 1 -r
     echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         echo "[CANCELLED] Installation cancelled."
-        echo "Tip: Use uninstall script first to remove old commands."
+        echo "Tip: Use uninstall script first to remove old skills."
         exit 0
     fi
 fi
 
-echo "Downloading commands..."
-for cmd in "${COMMANDS[@]}"; do
-    curl -sSL "$REPO_URL/$cmd" -o "$COMMANDS_DIR/$cmd"
+echo "Downloading skills..."
+for skill in "${SKILLS[@]}"; do
+    mkdir -p "$SKILLS_DIR/$skill"
+    curl -sSL "$REPO_URL/$skill/SKILL.md" -o "$SKILLS_DIR/$skill/SKILL.md"
+    echo "  + $skill"
 done
-echo "Claude DevStudio installed to $COMMANDS_DIR"
-echo "Type / in Claude Code to see available commands"
+echo ""
+echo "[SUCCESS] Claude DevStudio installed to $SKILLS_DIR"
+echo "Type / in Claude Code to see available skills"

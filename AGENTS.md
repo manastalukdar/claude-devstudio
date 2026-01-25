@@ -13,11 +13,11 @@ This document provides guidelines for AI assistants (particularly Claude Code) w
 
 ## Project Identity
 
-**Claude DevStudio** is a professional development environment that extends Claude Code CLI with 29 intelligent skills (formerly called slash commands) for automated workflows, code quality analysis, and session management.
+**Claude DevStudio** is a professional development environment that extends Claude Code CLI with 30 intelligent skills (formerly called slash commands) for automated workflows, code quality analysis, and session management.
 
 **Core Philosophy**: Time-saving automation with safety-first design and professional-grade code quality.
 
-**Note**: Claude Code has deprecated "slash commands" in favor of "Claude Skills" terminology. This project uses the updated terminology throughout.
+**Format**: All skills follow the [official Claude Skills format](https://code.claude.com/docs/en/skills) with YAML frontmatter and the [Agent Skills](https://agentskills.io) open standard. Each skill resides in `skills/skill-name/SKILL.md`.
 
 ## Critical Safety Rules
 
@@ -41,17 +41,21 @@ This document provides guidelines for AI assistants (particularly Claude Code) w
 
 ### 3. Skill Development
 
-- All skills are Markdown files in the `commands/` directory
+- All skills are in the `skills/` directory, each in its own subdirectory
+- Each skill has a `SKILL.md` file (uppercase) with YAML frontmatter
 - Skills must be self-contained with clear instructions
 - Test skills thoroughly before marking as complete
-- Follow the existing skill template structure
+- Follow the official Claude Skills format structure
 
 ## Development Workflows
 
 ### Working with Skills
 
-1. **Reading Skills**: Use `Read` tool to examine skill files in `commands/`
-2. **Creating Skills**: Follow the template structure from existing skills
+1. **Reading Skills**: Use `Read` tool to examine `skills/skill-name/SKILL.md` files
+2. **Creating Skills**:
+   - Create directory in `skills/skill-name/`
+   - Create `SKILL.md` with proper YAML frontmatter
+   - Follow the template structure from existing skills
 3. **Testing Skills**: Verify skill syntax and behavior before committing
 4. **Documentation**: Update README.md and CLAUDE.md when adding/modifying skills
 
@@ -59,8 +63,10 @@ This document provides guidelines for AI assistants (particularly Claude Code) w
 
 - `install.py` and `install.sh` must be kept in sync
 - `uninstall.py` and `uninstall.sh` must be kept in sync
+- Installation copies from `skills/` to `~/.claude/skills/`
+- Uninstallation removes from `~/.claude/skills/` and legacy `~/.claude/commands/`
 - Test installation on multiple platforms when possible
-- Ensure all 29 skills are included in installation manifests
+- Ensure all 30 skills are included in installation manifests
 
 ### Session Management
 
@@ -98,9 +104,15 @@ Skills in the `session-*` family require special attention:
 
 ### Skill Structure
 
-Each skill file should include:
+Each skill must be in its own directory with a `SKILL.md` file (uppercase) that includes YAML frontmatter followed by markdown content:
 
 ```markdown
+---
+name: skill-name
+description: Clear description of what it does and when to use it
+disable-model-invocation: false  # true for manual-only skills
+---
+
 # Skill Name
 
 ## Purpose
@@ -121,6 +133,15 @@ How to handle errors and unusual situations
 ## Safety Considerations
 Any risks or precautions
 ```
+
+**YAML Frontmatter Fields**:
+- `name`: Skill name (lowercase, hyphens, max 64 chars)
+- `description`: What it does and when to use it (helps Claude decide when to invoke)
+- `disable-model-invocation`: Set to `true` for manual-only skills (side effects, user control)
+- `user-invocable`: Set to `false` to hide from menu (default: `true`)
+- `allowed-tools`: Optional - restrict which tools Claude can use
+- `context`: Set to `fork` to run in subagent
+- `agent`: Subagent type when using `context: fork`
 
 ### Skill Categories
 
@@ -156,8 +177,9 @@ Any risks or precautions
 
 - Primary workspace: Project root directory
 - Session data: `.claude/sessions/` directory
-- Skill definitions: `commands/` directory
-- Installation: `~/.claude/commands/` (user-specific)
+- Skill definitions: `skills/` directory (each skill in `skills/skill-name/SKILL.md`)
+- Installation target: `~/.claude/skills/` (user-specific)
+- Legacy location: `~/.claude/commands/` (deprecated but still supported)
 
 ## Common Patterns
 
@@ -281,12 +303,16 @@ When multiple approaches are valid:
 
 ### Adding New Skills
 
-1. Create skill file in `commands/` directory
-2. Follow the established template structure
-3. Test thoroughly with various scenarios
-4. Update installation scripts to include new skill
-5. Document in README.md and CLAUDE.md
-6. Update this file if new patterns are introduced
+1. Create new directory: `skills/new-skill-name/`
+2. Create `SKILL.md` with proper YAML frontmatter:
+   - Set appropriate `name` and `description`
+   - Choose correct `disable-model-invocation` setting
+   - Add other frontmatter fields as needed
+3. Add skill markdown content following established patterns
+4. Test thoroughly with various scenarios
+5. Update installation scripts to include new skill (arrays in install.sh and uninstall scripts)
+6. Document in README.md and CLAUDE.md (update skill count)
+7. Update this file if new patterns are introduced
 
 ### Modifying Existing Skills
 

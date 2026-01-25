@@ -127,16 +127,20 @@ python install.py
 
 ```plaintext
 claude-devstudio/
-├── commands/              # Claude Skill definitions (29 .md files)
-│   ├── session-*.md      # Session management skills
-│   ├── README-sessions.md # Detailed session documentation
-│   └── [other skills]
-├── install.py/.sh        # Installation scripts
+├── skills/                # Claude Skills (30 directories)
+│   ├── commit/
+│   │   └── SKILL.md      # Smart Git Commit skill
+│   ├── session-start/
+│   │   └── SKILL.md      # Session management skill
+│   └── [28 other skills]
+├── commands/              # Legacy format (deprecated, kept for compatibility)
+├── install.py/.sh        # Installation scripts (installs to ~/.claude/skills/)
 ├── uninstall.py/.sh      # Uninstallation scripts
 ├── README.md             # Main documentation
 ├── CLAUDE.md             # This file - project memory
 ├── AGENTS.md             # AI agent interaction guidelines
 ├── CONTRIBUTING.md       # Contribution guidelines
+├── MIGRATION-PLAN.md     # Migration documentation
 └── LICENSE               # MIT license
 ```
 

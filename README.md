@@ -13,9 +13,9 @@ Professional development studio for Claude Code CLI that saves 4-5 hours per wee
 
 🚧 **Active Development Notice**: Claude DevStudio is continuously evolving based on real-world usage. We thoroughly test each skill and refine them as we discover gaps and opportunities. This ensures you're always getting battle-tested, production-ready tools that solve actual developer problems.
 
-**Note**: Claude Code has deprecated "slash commands" in favor of "Claude Skills." All references to "commands" in this project now refer to Claude Skills.
+**📢 New Claude Skills Format**: Claude DevStudio has been updated to use the official Claude Skills format with proper YAML frontmatter and directory structure. Each skill now resides in its own directory (`skills/skill-name/SKILL.md`) following the [Agent Skills](https://agentskills.io) open standard.
 
-Claude DevStudio is a comprehensive development environment featuring 29 professional skills that extend Claude Code CLI with enterprise-grade workflows. This intelligent development studio leverages Claude's contextual understanding while providing structured, predictable outcomes optimized for Opus 4 and Sonnet 4 models.
+Claude DevStudio is a comprehensive development environment featuring 30 professional skills that extend Claude Code CLI with enterprise-grade workflows. This intelligent development studio leverages Claude's contextual understanding while providing structured, predictable outcomes optimized for Opus 4 and Sonnet 4 models.
 
 ## Quick Links
 
@@ -62,9 +62,15 @@ python uninstall.py
 
 ## Skills
 
-29 professional skills optimized for Claude Code CLI's native capabilities with enhanced validation and refinement phases.
+30 professional skills optimized for Claude Code CLI's native capabilities with enhanced validation and refinement phases.
 
 **Invocation**: Skills are invoked using the `/skill-name` syntax (e.g., `/commit`, `/session-start`). These are Claude Skills as defined by Claude Code CLI.
+
+**Format**: Each skill follows the [official Claude Skills format](https://code.claude.com/docs/en/skills) with:
+- YAML frontmatter for configuration
+- Skill-specific directories (`skills/skill-name/SKILL.md`)
+- Proper invocation control (`disable-model-invocation` field)
+- Support for the [Agent Skills](https://agentskills.io) open standard
 
 ### 🚀 Development Workflow
 

@@ -75,7 +75,7 @@ Skills in the `session-*` family require special attention:
 - Must integrate with `.claude/sessions/` directory structure
 - Should preserve full context and history
 - Must handle edge cases (no active session, corrupt session files, etc.)
-- Follow the patterns established in `docs/sessions.md`
+- Follow the patterns established in `docs/session-management/sessions.md`
 
 ## Code Quality Standards
 
@@ -346,8 +346,8 @@ A successful interaction with Claude DevStudio:
 - **Main Documentation**: README.md
 - **Project Context**: CLAUDE.md
 - **Contribution Guidelines**: CONTRIBUTING.md
-- **Session System**: docs/sessions.md
-- **Migration Documentation**: docs/MIGRATION-PLAN.md
+- **Session System**: docs/session-management/sessions.md
+- **Migration Documentation**: docs/migration/MIGRATION-PLAN.md
 - **License**: LICENSE (MIT)
 
 ## Revision History

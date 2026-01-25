@@ -486,7 +486,7 @@ You can modify these instructions in individual skill files if needed.
 
 ## Session Management Documentation
 
-For comprehensive details about the session management system, see [docs/sessions.md](docs/sessions.md). This documentation covers:
+For comprehensive details about the session management system, see [docs/session-management/sessions.md](docs/session-management/sessions.md). This documentation covers:
 
 - Complete session workflow and best practices
 - Advanced skill usage and examples

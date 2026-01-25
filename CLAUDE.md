@@ -133,10 +133,17 @@ claude-devstudio/
 │   ├── session-start/
 │   │   └── SKILL.md      # Session management skill
 │   └── [28 other skills]
-├── docs/                  # Documentation and migration guides
-│   ├── sessions.md       # Session management documentation
-│   ├── MIGRATION-PLAN.md # Migration documentation
-│   └── [other docs]
+├── docs/                  # Documentation organized by feature area
+│   ├── session-management/
+│   │   └── sessions.md   # Session management documentation
+│   ├── migration/        # Migration documentation
+│   │   ├── MIGRATION-PLAN.md
+│   │   ├── MIGRATION_CHECKLIST.md
+│   │   └── MIGRATION_SUMMARY.md
+│   ├── development/      # Future contributor documentation
+│   └── installation/     # Future installation guides
+├── scripts/              # Utility scripts
+│   └── migrate_skills.py # Legacy migration script
 ├── install.py/.sh        # Installation scripts (installs to ~/.claude/skills/)
 ├── uninstall.py/.sh      # Uninstallation scripts
 ├── README.md             # Main documentation

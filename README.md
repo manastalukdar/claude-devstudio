@@ -20,7 +20,7 @@ Claude DevStudio is a comprehensive development environment featuring 30 profess
 ## Quick Links
 
 - [🚀 Installation](#installation) - Get started in 30 seconds
-- [💻 Commands](#commands) - See all available commands
+- [💻 Skills](#skills) - See all available skills
 - [🔧 How It Works](#how-it-works) - Understanding the magic
 - [📚 Session Management](#session-management-workflow) - Professional development tracking
 - [🧠 Technical Notes](#technical-notes) - Why conversational design matters
@@ -115,7 +115,7 @@ python uninstall.py
 /session-end                    # Summarize and preserve session context
 /session-current                # View current session status and recent updates
 /session-list                   # List all past sessions with summaries
-/session-help                   # Display session system help and commands
+/session-help                   # Display session system help and skills
 /session-resume                 # Resume previous session work
 /sessions-init                  # Initialize and organize session directory structure
 /docs                          # Smart documentation management and updates
@@ -196,7 +196,7 @@ Developer → /skill → Claude Code CLI → Skill Definition → Intelligent Ex
 
 When you invoke a skill:
 
-1. **Skill Loading**: Claude reads the markdown definition from `~/.claude/commands/`
+1. **Skill Loading**: Claude reads the SKILL.md definition from `~/.claude/skills/skill-name/`
 2. **Context Analysis**: Analyzes your project structure, technology stack, and current state
 3. **Intelligent Planning**: Creates execution strategy based on your specific situation
 4. **Safe Execution**: Performs actions with automatic checkpoints and validation
@@ -240,23 +240,23 @@ Skills like `/implement` and `/refactor` maintain state across Claude sessions:
 
 ```
 # Each skill creates its own folder in project root:
-refactor/                  # Created by /refactor command
+refactor/                  # Created by /refactor skill
 ├── plan.md               # Refactoring roadmap
 └── state.json            # Completed transformations
 
-implement/                 # Created by /implement command
+implement/                 # Created by /implement skill
 ├── plan.md               # Implementation progress
 └── state.json            # Session state and decisions
 
-fix-imports/              # Created by /fix-imports command
+fix-imports/              # Created by /fix-imports skill
 ├── plan.md               # Import fixes plan
 └── state.json            # Resolution progress
 
-security-scan/            # Created by /security-scan command
+security-scan/            # Created by /security-scan skill
 ├── plan.md               # Vulnerabilities and fixes
 └── state.json            # Remediation progress
 
-scaffold/                 # Created by /scaffold command
+scaffold/                 # Created by /scaffold skill
 ├── plan.md               # Scaffolding plan
 └── state.json            # Created files tracking
 ```
@@ -329,7 +329,7 @@ git commit -m "Pre-operation checkpoint" || echo "No changes to commit"
 ```
 
 **Conversational Interface:**
-Skills use first-person collaborative language ("I'll analyze your code...") rather than imperative commands, creating a natural partnership interaction that improves model performance.
+Skills use first-person collaborative language ("I'll analyze your code...") rather than imperative instructions, creating a natural partnership interaction that improves model performance.
 
 **Framework Agnostic:**
 Intelligent detection without hardcoded assumptions enables universal compatibility across technology stacks.
@@ -366,13 +366,13 @@ Custom skills appear with a `(user)` tag in Claude Code CLI to distinguish them 
 
 - Claude Code CLI
 - Python 3.6+ (for installer)
-- Git (for version control commands)
+- Git (for version control skills)
 
 ## Advanced Usage
 
 ### Creating Custom Skills
 
-Create your own skills by adding markdown files to `~/.claude/commands/`:
+Create your own skills by adding directories to `~/.claude/skills/`:
 
 ```markdown
 # My Custom Skill
@@ -486,10 +486,10 @@ You can modify these instructions in individual skill files if needed.
 
 ## Session Management Documentation
 
-For comprehensive details about the session management system, see [commands/README-sessions.md](docs/sessions.md). This documentation covers:
+For comprehensive details about the session management system, see [docs/sessions.md](docs/sessions.md). This documentation covers:
 
 - Complete session workflow and best practices
-- Advanced command usage and examples
+- Advanced skill usage and examples
 - Session file structure and organization
 - Integration with Claude Code's memory system
 - Tips for team collaboration and knowledge transfer

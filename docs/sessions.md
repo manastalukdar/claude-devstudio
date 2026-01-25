@@ -1,17 +1,17 @@
-# Claude Code Session Management Commands
+# Claude Code Session Management Skills
 
-Custom slash commands for Claude Code that provide comprehensive development session tracking and documentation. Based on [Claude Code's custom slash command system](https://docs.anthropic.com/en/docs/claude-code/slash-commands).
+Custom skills for Claude Code that provide comprehensive development session tracking and documentation. Based on [Claude Code's official Skills system](https://code.claude.com/docs/en/skills).
 
 ## 🎯 Overview
 
-This is a set of custom slash commands for Claude Code that helps developers maintain continuity across multiple coding sessions with Claude by:
+This is a set of custom skills for Claude Code that helps developers maintain continuity across multiple coding sessions with Claude by:
 
 - **Documenting Progress**: Capture what was done, how it was done, and why decisions were made
-- **Tracking Changes**: Monitor git changes, todo items, and implementation details  
+- **Tracking Changes**: Monitor git changes, todo items, and implementation details
 - **Knowledge Transfer**: Enable future sessions to understand past work without re-analyzing the entire codebase
 - **Issue Resolution**: Document problems encountered and their solutions for future reference
 
-These commands extend Claude Code's built-in functionality with project-specific session management capabilities.
+These skills extend Claude Code's built-in functionality with project-specific session management capabilities.
 
 ## 🚀 Quick Start
 
@@ -39,15 +39,21 @@ These commands extend Claude Code's built-in functionality with project-specific
 ## 📁 File Structure
 
 ```
-commands/                       # Custom command directory
-├── session-start.md           # Command for starting a new session
-├── session-update.md          # Command for updating current session
-├── session-end.md             # Command for ending and summarizing
-├── session-current.md         # Command for viewing current status
-├── session-list.md            # Command for listing all sessions
-└── session-help.md            # Command for showing help
+skills/                         # Claude Skills directory
+├── session-start/
+│   └── SKILL.md               # Skill for starting a new session
+├── session-update/
+│   └── SKILL.md               # Skill for updating current session
+├── session-end/
+│   └── SKILL.md               # Skill for ending and summarizing
+├── session-current/
+│   └── SKILL.md               # Skill for viewing current status
+├── session-list/
+│   └── SKILL.md               # Skill for listing all sessions
+└── session-help/
+    └── SKILL.md               # Skill for showing help
 
-sessions/                      # Session storage directory
+.claude/sessions/              # Session storage directory
 ├── .current-session          # Tracks the active session filename
 ├── 2025-01-16-1347.md       # Example session file
 └── [YYYY-MM-DD-HHMM-name].md  # Session naming format
@@ -74,14 +80,15 @@ sessions/                      # Session storage directory
 
 ## 📝 How It Works
 
-This system provides custom slash commands inspired by [Claude Code's custom slash commands](https://docs.anthropic.com/en/docs/claude-code/slash-commands#custom-slash-commands) feature. While Claude Code typically looks for commands in `.claude/commands/`, this repository provides a standalone implementation with commands in the `commands/` directory.
+This system provides custom skills using [Claude Code's official Skills format](https://code.claude.com/docs/en/skills). Skills are stored in the `skills/` directory with proper YAML frontmatter and follow the [Agent Skills](https://agentskills.io) open standard.
 
-- **Prefix**: All commands use the `/project:` prefix (for project-specific commands)
-- **Arguments**: Commands support arguments using the `$ARGUMENTS` placeholder
-- **Execution**: Claude reads the command file and executes the instructions within
-- **Note**: These commands are designed to work with Claude but can be adapted for other AI coding assistants
+- **Format**: Each skill has YAML frontmatter with `name`, `description`, and invocation control
+- **Location**: Skills are installed to `~/.claude/skills/` or project-local `.claude/skills/`
+- **Arguments**: Skills support arguments using the `$ARGUMENTS` placeholder
+- **Execution**: Claude reads the SKILL.md file and executes the instructions within
+- **Invocation**: Skills can be invoked with `/skill-name` or automatically by Claude when relevant
 
-## 📋 Command Reference
+## 📋 Skill Reference
 
 ### `/project:session-start [name]`
 Starts a new development session with an optional descriptive name.
@@ -165,32 +172,35 @@ Displays help information about the session system.
 
 ## 🎯 Best Practices for Claude Code
 
-### Command Usage
-- These commands work only within Claude Code interactive sessions
-- Commands are project-specific and available to all team members
-- Arguments are passed directly after the command name
+### Skill Usage
+- These skills work within Claude Code interactive sessions
+- Skills are available across all projects (personal) or project-specific
+- Arguments are passed directly after the skill name
 
-### Session Management  
+### Session Management
 - Sessions help Claude maintain context across conversations
 - Review past sessions before starting related work
 - Session files serve as documentation for your development process
 
 ## 🔧 Customization
 
-### Adapting for Standard Claude Code Setup
-If you want to use these with Claude Code's standard directory structure:
-1. Copy the `commands` folder to `.claude/commands/` in your project
-2. Update paths in command files from `sessions/` to `.claude/sessions/`
+### Installation Locations
+Skills can be installed at different scopes:
+- **Personal**: `~/.claude/skills/` - Available across all projects
+- **Project**: `.claude/skills/` - Available only in this project
+- Use the provided installation scripts for proper setup
 
-### Creating Your Own Commands
-- Modify command files to change behavior
-- Create additional session-related commands
-- Organize commands in subdirectories for namespacing (e.g., `/project:session:feature:start`)
-- Create personal versions in `~/.claude/commands/` with `/user:` prefix
+### Creating Your Own Skills
+- Create new directory in `skills/skill-name/`
+- Add `SKILL.md` with proper YAML frontmatter
+- Set `disable-model-invocation: true` for manual-only skills
+- Modify existing skill files to change behavior
+- Create personal versions in `~/.claude/skills/` for custom workflows
 
 ## 📚 References
 
-- [Claude Code Slash Commands Documentation](https://docs.anthropic.com/en/docs/claude-code/slash-commands)
+- [Claude Code Skills Documentation](https://code.claude.com/docs/en/skills)
+- [Agent Skills Open Standard](https://agentskills.io)
 - [Claude Code Memory Management](https://docs.anthropic.com/en/docs/claude-code/memory-management)
 - [Claude Code Overview](https://docs.anthropic.com/en/docs/claude-code/overview)
 
@@ -267,16 +277,17 @@ If you want to use these with Claude Code's standard directory structure:
 
 ## ⚙️ Configuration
 
-### Customizing Commands
-Edit the command files in `commands/` to:
+### Customizing Skills
+Edit the skill files in `skills/skill-name/SKILL.md` to:
 - Change session file format
 - Add custom sections
 - Modify summary generation
 - Adjust git tracking details
+- Update YAML frontmatter for invocation control
 
 ### Session Storage
-- Default: `sessions/`
-- Can be changed by updating command files
+- Default: `.claude/sessions/`
+- Can be changed by updating skill files
 - Consider version control needs
 
 ## 🚨 Troubleshooting
@@ -316,10 +327,11 @@ issues and added proper error handling.
 ## 🤝 Contributing
 
 To improve this system:
-1. Enhance command instructions for better AI comprehension
-2. Add new commands for specific workflows
+1. Enhance skill instructions for better AI comprehension
+2. Add new skills for specific workflows
 3. Improve session file formatting
 4. Create utilities for session analysis
+5. Update YAML frontmatter for better invocation control
 
 ## 📄 License
 

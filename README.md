@@ -11,9 +11,11 @@ Professional development studio for Claude Code CLI that saves 4-5 hours per wee
 🤪 "Please add a button" → Complete UI framework rewrite  
 😭 Every conversation → "Act like a senior engineer who doesn't overengineer"
 
-🚧 **Active Development Notice**: Claude DevStudio is continuously evolving based on real-world usage. We thoroughly test each command and refine them as we discover gaps and opportunities. This ensures you're always getting battle-tested, production-ready tools that solve actual developer problems.
+🚧 **Active Development Notice**: Claude DevStudio is continuously evolving based on real-world usage. We thoroughly test each skill and refine them as we discover gaps and opportunities. This ensures you're always getting battle-tested, production-ready tools that solve actual developer problems.
 
-Claude DevStudio is a comprehensive development environment featuring 29 professional commands that extend Claude Code CLI with enterprise-grade workflows. This intelligent development studio leverages Claude's contextual understanding while providing structured, predictable outcomes optimized for Opus 4 and Sonnet 4 models.
+**Note**: Claude Code has deprecated "slash commands" in favor of "Claude Skills." All references to "commands" in this project now refer to Claude Skills.
+
+Claude DevStudio is a comprehensive development environment featuring 29 professional skills that extend Claude Code CLI with enterprise-grade workflows. This intelligent development studio leverages Claude's contextual understanding while providing structured, predictable outcomes optimized for Opus 4 and Sonnet 4 models.
 
 ## Quick Links
 
@@ -58,9 +60,11 @@ python install.py
 python uninstall.py
 ```
 
-## Commands
+## Skills
 
-29 professional commands optimized for Claude Code CLI's native capabilities with enhanced validation and refinement phases.
+29 professional skills optimized for Claude Code CLI's native capabilities with enhanced validation and refinement phases.
+
+**Invocation**: Skills are invoked using the `/skill-name` syntax (e.g., `/commit`, `/session-start`). These are Claude Skills as defined by Claude Code CLI.
 
 ### 🚀 Development Workflow
 
@@ -116,7 +120,7 @@ python uninstall.py
 
 ### 🔍 Validation & Refinement
 
-Complex commands now include validation phases to ensure completeness:
+Complex skills now include validation phases to ensure completeness:
 
 ```bash
 /refactor validate   # Find remaining old patterns, verify 100% migration
@@ -130,7 +134,7 @@ Advanced analysis for complex scenarios:
 - **Refactoring**: Deep architectural analysis for large-scale changes
 - **Security**: Sophisticated vulnerability detection with chain analysis
 
-### 🔗 Pragmatic Command Integration
+### 🔗 Pragmatic Skill Integration
 
 Natural workflow suggestions without over-engineering:
 
@@ -177,16 +181,16 @@ src/
 Claude DevStudio transforms Claude Code CLI into an intelligent development assistant through a sophisticated yet elegant architecture:
 
 ```plaintext
-Developer → /command → Claude Code CLI → Command Definition → Intelligent Execution
-    ↑                                                                       ↓
+Developer → /skill → Claude Code CLI → Skill Definition → Intelligent Execution
+    ↑                                                                    ↓
     ←←←←←←←←←←←←←←←←← Clear Feedback & Results ←←←←←←←←←←←←←←←←←←←
 ```
 
 ### Execution Flow
 
-When you type a command:
+When you invoke a skill:
 
-1. **Command Loading**: Claude reads the markdown definition from `~/.claude/commands/`
+1. **Skill Loading**: Claude reads the markdown definition from `~/.claude/commands/`
 2. **Context Analysis**: Analyzes your project structure, technology stack, and current state
 3. **Intelligent Planning**: Creates execution strategy based on your specific situation
 4. **Safe Execution**: Performs actions with automatic checkpoints and validation
@@ -226,10 +230,10 @@ When you type a command:
 ### Advanced Features
 
 **🔄 Session Continuity**
-Commands like `/implement` and `/refactor` maintain state across Claude sessions:
+Skills like `/implement` and `/refactor` maintain state across Claude sessions:
 
 ```
-# Each command creates its own folder in project root:
+# Each skill creates its own folder in project root:
 refactor/                  # Created by /refactor command
 ├── plan.md               # Refactoring roadmap
 └── state.json            # Completed transformations
@@ -268,7 +272,7 @@ Advanced session tracking with Claude Code integration:
 ```
 
 **🤖 Multi-Agent Architecture**
-Complex commands orchestrate specialized sub-agents:
+Complex skills orchestrate specialized sub-agents:
 
 - Security analysis agent for vulnerability detection
 - Performance optimization agent for bottleneck identification
@@ -288,7 +292,7 @@ Complex commands orchestrate specialized sub-agents:
 
 **Why This Approach Works** (Based on Anthropic's Research):
 
-- **Conversational Commands**: First-person language ("I'll help...") activates Claude's collaborative reasoning
+- **Conversational Skills**: First-person language ("I'll help...") activates Claude's collaborative reasoning
 - **Build-Agnostic Instructions**: No hardcoded tools = works everywhere
 - **Think Tool Integration**: Strategic thinking improves decisions by 50%+ (Anthropic, 2025)
 - **Native Tools Only**: Uses Claude Code's actual capabilities, not imaginary APIs
@@ -296,14 +300,14 @@ Complex commands orchestrate specialized sub-agents:
 **Key Principles:**
 
 - **Simplicity > Complexity**: Start simple, add only when proven necessary
-- **Context Awareness**: Commands adapt to YOUR project, not vice versa
+- **Context Awareness**: Skills adapt to YOUR project, not vice versa
 - **Safety First**: Git checkpoints before any destructive operation
 - **Pattern Recognition**: Learn from your codebase, not assumptions
 
 ### Technical Architecture
 
 **Native Tool Integration:**
-All commands leverage Claude Code CLI's native capabilities:
+All skills leverage Claude Code CLI's native capabilities:
 
 - Grep tool for efficient pattern matching
 - Glob tool for file discovery
@@ -319,20 +323,20 @@ git commit -m "Pre-operation checkpoint" || echo "No changes to commit"
 ```
 
 **Conversational Interface:**
-Commands use first-person collaborative language ("I'll analyze your code...") rather than imperative commands, creating a natural partnership interaction that improves model performance.
+Skills use first-person collaborative language ("I'll analyze your code...") rather than imperative commands, creating a natural partnership interaction that improves model performance.
 
 **Framework Agnostic:**
 Intelligent detection without hardcoded assumptions enables universal compatibility across technology stacks.
 
-### User Commands Indicator
+### User Skills Indicator
 
-Custom commands appear with a `(user)` tag in Claude Code CLI to distinguish them from built-in commands. This is normal and indicates your commands are properly installed.
+Custom skills appear with a `(user)` tag in Claude Code CLI to distinguish them from built-in skills. This is normal and indicates your skills are properly installed.
 
 ```
 /commit
-    Smart Git Commit (user)    ← Your custom command
+    Smart Git Commit (user)    ← Your custom skill
 /help
-    Show help                  ← Built-in command
+    Show help                  ← Built-in skill
 ```
 
 ## Performance Metrics
@@ -360,12 +364,12 @@ Custom commands appear with a `(user)` tag in Claude Code CLI to distinguish the
 
 ## Advanced Usage
 
-### Creating Custom Commands
+### Creating Custom Skills
 
-Create your own commands by adding markdown files to `~/.claude/commands/`:
+Create your own skills by adding markdown files to `~/.claude/commands/`:
 
 ```markdown
-# My Custom Command
+# My Custom Skill
 
 I'll help you with your specific workflow.
 
@@ -374,16 +378,16 @@ I'll help you with your specific workflow.
 
 ### Using Arguments
 
-Commands support arguments via `$ARGUMENTS`:
+Skills support arguments via `$ARGUMENTS`:
 
 ```bash
-/mycommand some-file.js
+/myskill some-file.js
 # $ARGUMENTS will contain "some-file.js"
 ```
 
 ### CI/CD Integration
 
-Use commands in automated workflows:
+Use skills in automated workflows:
 
 ```bash
 # Quality pipeline
@@ -457,22 +461,22 @@ claude "/session-end"
 
 ## Security & Git Instructions
 
-All commands that interact with git include security instructions to prevent AI attribution:
+All skills that interact with git include security instructions to prevent AI attribution:
 
-**Commands with git protection:**
+**Skills with git protection:**
 
 - `/commit`, `/scaffold`, `/make-it-pretty`, `/cleanproject`, `/fix-imports`, `/review`, `/security-scan`
 - `/contributing`, `/todos-to-issues`, `/predict-issues`, `/find-todos`, `/create-todos`, `/fix-todos`
 - `/session-start`, `/session-update`, `/session-end`, `/session-current`, `/session-list`, `/session-resume`, `/sessions-init`
 
-These commands will NEVER:
+These skills will NEVER:
 
 - Add "Co-authored-by" or AI signatures
 - Include "Generated with Claude Code" messages
 - Modify git config or credentials
 - Add AI attribution to commits/issues
 
-You can modify these instructions in individual command files if needed.
+You can modify these instructions in individual skill files if needed.
 
 ## Session Management Documentation
 
@@ -492,10 +496,10 @@ We welcome contributions that help developers save time. See [CONTRIBUTING.md](C
 
 This project builds upon and extends excellent work from the open-source community. We gratefully acknowledge the following projects that have contributed foundational concepts and implementations:
 
-- **[CCPlugins](https://github.com/brennercruvinel/CCPlugins)** - Professional command framework and core development workflow commands
+- **[CCPlugins](https://github.com/brennercruvinel/CCPlugins)** - Professional skill framework and core development workflow skills
 - **[claude-sessions](https://github.com/iannuttall/claude-sessions)** - Session management system architecture and documentation patterns
 
-This repository enhances these foundations with additional commands, refined workflows, and integrated session management capabilities tailored for professional development environments.
+This repository enhances these foundations with additional skills, refined workflows, and integrated session management capabilities tailored for professional development environments.
 
 ## License
 

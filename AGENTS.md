@@ -13,9 +13,11 @@ This document provides guidelines for AI assistants (particularly Claude Code) w
 
 ## Project Identity
 
-**Claude DevStudio** is a professional development environment that extends Claude Code CLI with 29 intelligent commands for automated workflows, code quality analysis, and session management.
+**Claude DevStudio** is a professional development environment that extends Claude Code CLI with 29 intelligent skills (formerly called slash commands) for automated workflows, code quality analysis, and session management.
 
 **Core Philosophy**: Time-saving automation with safety-first design and professional-grade code quality.
+
+**Note**: Claude Code has deprecated "slash commands" in favor of "Claude Skills" terminology. This project uses the updated terminology throughout.
 
 ## Critical Safety Rules
 
@@ -37,32 +39,32 @@ This document provides guidelines for AI assistants (particularly Claude Code) w
 - Preserve existing code style, formatting, and conventions
 - Never create unnecessary documentation files unless explicitly requested
 
-### 3. Command Development
+### 3. Skill Development
 
-- All commands are Markdown files in the `commands/` directory
-- Commands must be self-contained with clear instructions
-- Test commands thoroughly before marking as complete
-- Follow the existing command template structure
+- All skills are Markdown files in the `commands/` directory
+- Skills must be self-contained with clear instructions
+- Test skills thoroughly before marking as complete
+- Follow the existing skill template structure
 
 ## Development Workflows
 
-### Working with Commands
+### Working with Skills
 
-1. **Reading Commands**: Use `Read` tool to examine command files in `commands/`
-2. **Creating Commands**: Follow the template structure from existing commands
-3. **Testing Commands**: Verify command syntax and behavior before committing
-4. **Documentation**: Update README.md and CLAUDE.md when adding/modifying commands
+1. **Reading Skills**: Use `Read` tool to examine skill files in `commands/`
+2. **Creating Skills**: Follow the template structure from existing skills
+3. **Testing Skills**: Verify skill syntax and behavior before committing
+4. **Documentation**: Update README.md and CLAUDE.md when adding/modifying skills
 
 ### Installation Scripts
 
 - `install.py` and `install.sh` must be kept in sync
 - `uninstall.py` and `uninstall.sh` must be kept in sync
 - Test installation on multiple platforms when possible
-- Ensure all 29 commands are included in installation manifests
+- Ensure all 29 skills are included in installation manifests
 
 ### Session Management
 
-Commands in the `session-*` family require special attention:
+Skills in the `session-*` family require special attention:
 
 - Must integrate with `.claude/sessions/` directory structure
 - Should preserve full context and history
@@ -92,20 +94,20 @@ Commands in the `session-*` family require special attention:
 - Test edge cases and error handling
 - Ensure backwards compatibility when modifying existing commands
 
-## Command Development Guidelines
+## Skill Development Guidelines
 
-### Command Structure
+### Skill Structure
 
-Each command file should include:
+Each skill file should include:
 
 ```markdown
-# Command Name
+# Skill Name
 
 ## Purpose
 Clear one-line description
 
 ## Usage
-How to invoke the command
+How to invoke the skill
 
 ## Behavior
 Step-by-step process
@@ -120,33 +122,33 @@ How to handle errors and unusual situations
 Any risks or precautions
 ```
 
-### Command Categories
+### Skill Categories
 
 1. **Development Workflow**: Automate repetitive tasks
 2. **Code Quality & Security**: Analysis and improvement
 3. **Advanced Analysis**: Deep understanding and explanation
 4. **Session & Project Management**: Context preservation and collaboration
 
-### Command Naming
+### Skill Naming
 
 - Use kebab-case: `session-start`, `fix-todos`, `security-scan`
 - Be descriptive but concise
-- Follow established patterns in the command family
+- Follow established patterns in the skill family
 - Avoid abbreviations unless universally understood
 
 ## Integration Points
 
 ### Claude Code CLI
 
-- Commands are invoked via `/command-name` syntax
-- Commands receive context from Claude Code conversation history
-- Commands can use Claude Code's built-in tools (Read, Write, Edit, Bash, etc.)
-- Commands should be autonomous and minimize user interaction
+- Skills are invoked via `/skill-name` syntax (Claude Skills)
+- Skills receive context from Claude Code conversation history
+- Skills can use Claude Code's built-in tools (Read, Write, Edit, Bash, etc.)
+- Skills should be autonomous and minimize user interaction
 
 ### Git Integration
 
-- Commands may read git status and history
-- Commands should never commit without explicit user request
+- Skills may read git status and history
+- Skills should never commit without explicit user request
 - Use git checkpoints for safety before destructive operations
 - Respect user's git configuration and credentials
 
@@ -154,7 +156,7 @@ Any risks or precautions
 
 - Primary workspace: Project root directory
 - Session data: `.claude/sessions/` directory
-- Command definitions: `commands/` directory
+- Skill definitions: `commands/` directory
 - Installation: `~/.claude/commands/` (user-specific)
 
 ## Common Patterns
@@ -277,23 +279,23 @@ When multiple approaches are valid:
 
 ## Extension and Customization
 
-### Adding New Commands
+### Adding New Skills
 
-1. Create command file in `commands/` directory
+1. Create skill file in `commands/` directory
 2. Follow the established template structure
 3. Test thoroughly with various scenarios
-4. Update installation scripts to include new command
+4. Update installation scripts to include new skill
 5. Document in README.md and CLAUDE.md
 6. Update this file if new patterns are introduced
 
-### Modifying Existing Commands
+### Modifying Existing Skills
 
 1. Read and understand current implementation
 2. Identify specific changes needed
 3. Maintain backwards compatibility when possible
 4. Test all documented use cases
 5. Update documentation if behavior changes
-6. Consider impact on dependent commands
+6. Consider impact on dependent skills
 
 ### Framework-Specific Extensions
 

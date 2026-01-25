@@ -5,11 +5,11 @@
  https://opensource.org/licenses/MIT
 -->
 
-# Claude DevStudio - Professional Claude Code Commands
+# Claude DevStudio - Professional Claude Code Skills
 
 ## Project Overview
 
-Claude DevStudio is a comprehensive development environment featuring 29 professional commands for Claude Code CLI that automate repetitive development tasks and provide enterprise-grade workflows. This intelligent development studio extends Claude Code's capabilities with intelligent commands that save 4-5 hours per week through:
+Claude DevStudio is a comprehensive development environment featuring 29 professional skills for Claude Code CLI that automate repetitive development tasks and provide enterprise-grade workflows. This intelligent development studio extends Claude Code's capabilities with intelligent skills that save 4-5 hours per week through:
 
 - **Automated Development Workflows**: Smart commits, testing, formatting, and scaffolding
 - **Code Quality & Security**: Multi-agent analysis, vulnerability scanning, and issue prediction
@@ -18,9 +18,9 @@ Claude DevStudio is a comprehensive development environment featuring 29 profess
 
 ## Key Features
 
-### Core Command Categories
+### Core Skill Categories
 
-1. **Development Workflow Commands** (8 commands)
+1. **Development Workflow Skills** (8 skills)
    - `/cleanproject` - Remove debug artifacts safely
    - `/commit` - Smart conventional commits
    - `/format` - Auto-detect and apply formatting
@@ -30,7 +30,7 @@ Claude DevStudio is a comprehensive development environment featuring 29 profess
    - `/refactor` - Structured code restructuring
    - `/undo` - Safe rollback with git checkpoints
 
-2. **Code Quality & Security Commands** (8 commands)
+2. **Code Quality & Security Skills** (8 skills)
    - `/review` - Multi-agent code analysis
    - `/security-scan` - Vulnerability detection and remediation
    - `/predict-issues` - Proactive problem identification
@@ -40,13 +40,13 @@ Claude DevStudio is a comprehensive development environment featuring 29 profess
    - `/create-todos` - Add contextual TODO comments
    - `/fix-todos` - Intelligent TODO resolution
 
-3. **Advanced Analysis Commands** (4 commands)
+3. **Advanced Analysis Skills** (4 skills)
    - `/understand` - Project architecture analysis
    - `/explain-like-senior` - Senior-level code explanations
    - `/contributing` - Contribution readiness assessment
    - `/make-it-pretty` - Improve code readability
 
-4. **Session & Project Management Commands** (10 commands)
+4. **Session & Project Management Skills** (10 skills)
    - `/session-start [name]` - Begin documented sessions
    - `/session-update [notes]` - Track progress with timestamps
    - `/session-end` - Generate comprehensive summaries
@@ -116,20 +116,21 @@ python install.py
 
 ### Recently Added Features
 
-- Complete session management system with 8 session commands
+- Complete session management system with 8 session skills
 - Integration with Claude Code's native memory system
 - Comprehensive session documentation and workflows
 - Enhanced README with session management examples
-- Updated installation scripts to include all new commands
+- Updated installation scripts to include all new skills
+- Updated terminology from "slash commands" to "Claude Skills" per Claude Code deprecation
 
 ### File Structure
 
 ```plaintext
 claude-devstudio/
-├── commands/              # Command definitions (29 .md files)
-│   ├── session-*.md      # Session management commands
+├── commands/              # Claude Skill definitions (29 .md files)
+│   ├── session-*.md      # Session management skills
 │   ├── README-sessions.md # Detailed session documentation
-│   └── [other commands]
+│   └── [other skills]
 ├── install.py/.sh        # Installation scripts
 ├── uninstall.py/.sh      # Uninstallation scripts
 ├── README.md             # Main documentation
@@ -153,10 +154,11 @@ Built upon excellent open-source work:
 This fork extends the original with:
 
 - Integrated session management system
-- Enhanced command validation and refinement
+- Enhanced skill validation and refinement
 - Professional development tracking
 - Comprehensive documentation and examples
 - Updated installation and maintenance scripts
+- Migration from slash commands to Claude Skills architecture
 
 ## Usage Patterns
 
@@ -192,7 +194,7 @@ claude "/find-todos" && claude "/fix-todos"
 
 ### Potential Enhancements
 
-- Additional specialized commands for specific frameworks
+- Additional specialized skills for specific frameworks
 - Enhanced session analytics and reporting
 - Integration with additional development tools
 - Advanced project architecture analysis
@@ -201,9 +203,10 @@ claude "/find-todos" && claude "/fix-todos"
 ### Maintenance Tasks
 
 - Regular testing with latest Claude Code CLI versions
-- Documentation updates based on user feedback  
-- Command refinement based on real-world usage patterns
+- Documentation updates based on user feedback
+- Skill refinement based on real-world usage patterns
 - Performance optimizations for large codebases
+- Ensure compatibility with Claude Skills architecture updates
 
 ## Project Goals
 

@@ -575,29 +575,89 @@ This project builds upon and extends excellent work from the open-source communi
 - **[Supertest](https://github.com/ladjs/supertest)** - API testing library and HTTP assertion patterns
 - **[FastAPI Testing Guide](https://fastapi.tiangolo.com/tutorial/testing/)** - API testing best practices for Python
 - **[Jest Documentation](https://jestjs.io)** - JavaScript testing framework patterns
+- **[Stryker](https://stryker-mutator.io)** - Mutation testing for JavaScript/TypeScript
+- **[mutmut](https://github.com/boxed/mutmut)** - Python mutation testing framework
+- **[xUnit Test Patterns](http://xunitpatterns.com)** - Gerard Meszaros' testing anti-patterns and best practices
+- **[Istanbul/nyc](https://istanbul.js.org)** - JavaScript code coverage tool
+- **[pytest](https://pytest.org)** - Python testing framework and coverage tools
 
 ### API & Schema Standards
 - **[OpenAPI Specification](https://www.openapis.org)** - API contract validation and schema standards
 - **[GraphQL Code Generator](https://the-guild.dev/graphql/codegen)** - Type generation from GraphQL schemas
-- **[Prisma](https://www.prisma.io)** - Database schema and type generation patterns
+- **[GraphQL Federation](https://www.apollographql.com/docs/federation/)** - Apollo Federation specification
+- **[Postman](https://www.postman.com)** - API testing and collection format
+- **[Prism](https://stoplight.io/open-source/prism)** - OpenAPI mock server
+- **[MSW (Mock Service Worker)](https://mswjs.io)** - API mocking library
+- **[WireMock](https://wiremock.org)** - HTTP API mocking
 
 ### CI/CD & DevOps
 - **[GitHub Actions Documentation](https://docs.github.com/en/actions)** - CI/CD pipeline best practices
 - **[GitLab CI Documentation](https://docs.gitlab.com/ee/ci/)** - GitLab CI/CD patterns
 - **[CircleCI Documentation](https://circleci.com/docs/)** - CircleCI configuration standards
+- **[Terraform](https://www.terraform.io)** - Infrastructure as Code for multi-cloud
+- **[AWS CloudFormation](https://aws.amazon.com/cloudformation/)** - AWS infrastructure provisioning
+- **[Pulumi](https://www.pulumi.com)** - Modern Infrastructure as Code
+- **[Docker](https://www.docker.com)** - Container platform and best practices
+- **[Kubernetes](https://kubernetes.io)** - Container orchestration platform
+- **[Trivy](https://trivy.dev)** - Container security scanning
+
+### Database & ORM
+- **[Prisma](https://www.prisma.io)** - Database schema and type generation patterns
+- **[TypeORM](https://typeorm.io)** - TypeScript/JavaScript ORM
+- **[SQLAlchemy](https://www.sqlalchemy.org)** - Python SQL toolkit and ORM
+- **[Django ORM](https://docs.djangoproject.com/en/stable/topics/db/)** - Django database ORM
+- **[Sequelize](https://sequelize.org)** - Node.js ORM for SQL databases
+- **[Mongoose](https://mongoosejs.com)** - MongoDB object modeling
+- **[Faker.js](https://fakerjs.dev)** - Generate realistic fake data
+- **[Python Faker](https://faker.readthedocs.io)** - Python fake data generator
+
+### Performance & Optimization
+- **[Lighthouse](https://developer.chrome.com/docs/lighthouse/)** - Google web performance auditing
+- **[Webpack](https://webpack.js.org)** - Module bundler and optimization
+- **[Vite](https://vitejs.dev)** - Next-generation frontend tooling
+- **[esbuild](https://esbuild.github.io)** - Extremely fast JavaScript bundler
+- **[Rollup](https://rollupjs.org)** - JavaScript module bundler
+- **[clinic.js](https://clinicjs.org)** - Node.js performance profiling
+- **[Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/)** - Browser debugging and profiling
+- **[memory_profiler](https://pypi.org/project/memory-profiler/)** - Python memory usage profiling
 
 ### Security & Code Quality
 - **[gitleaks](https://github.com/gitleaks/gitleaks)** - Secrets detection patterns
 - **[trufflehog](https://github.com/trufflesecurity/trufflehog)** - Credential scanning methodology
 - **[Snyk](https://snyk.io)** - Dependency security scanning patterns
 - **[OWASP Top 10](https://owasp.org/www-project-top-ten/)** - Security vulnerability standards
+- **[WCAG 2.1](https://www.w3.org/WAI/WCAG21/quickref/)** - Web Content Accessibility Guidelines
+- **[axe-core](https://github.com/dequelabs/axe-core)** - Accessibility testing engine (Deque Systems)
+- **[pa11y](https://pa11y.org)** - Automated accessibility testing
+- **[ESLint](https://eslint.org)** - JavaScript/TypeScript linting and complexity analysis
+- **[radon](https://radon.readthedocs.io)** - Python code metrics and complexity
+- **[jscpd](https://github.com/kucherenko/jscpd)** - Copy-paste detector for code duplication
+
+### Architecture & Methodologies
+- **[Boris Cherny](https://github.com/bcherny)** - Multi-agent parallel development workflow patterns
+- **[Martin Fowler](https://martinfowler.com)** - Refactoring patterns and software design principles
+- **[Thomas J. McCabe](https://en.wikipedia.org/wiki/Cyclomatic_complexity)** - Cyclomatic complexity metric
+- **[The Pragmatic Programmer](https://pragprog.com/titles/tpp20/)** - DRY principle and programming best practices
+- **[Clean Code](https://www.oreilly.com/library/view/clean-code-a/9780136083238/)** - Robert C. Martin's code quality principles
+- **[Git Documentation](https://git-scm.com/doc)** - Git workflows, worktrees, bisect, and merge strategies
+
+### Documentation & Diagramming
+- **[Mermaid](https://mermaid.js.org)** - Markdown-based diagram generation
+- **[PlantUML](https://plantuml.com)** - UML diagram generation
+- **[Storybook](https://storybook.js.org)** - UI component development and documentation
+- **[JSDoc](https://jsdoc.app)** - JavaScript documentation standard
+- **[Godoc](https://go.dev/blog/godoc)** - Go documentation format
+- **[Sphinx](https://www.sphinx-doc.org)** - Python documentation generator
 
 ### Standards & Conventions
 - **[Conventional Commits](https://www.conventionalcommits.org)** - Commit message format standards
 - **[Keep a Changelog](https://keepachangelog.com)** - Changelog generation standards
 - **[Semantic Versioning](https://semver.org)** - Version management standards
+- **[ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)** - Accessible Rich Internet Applications
+- **[Section 508](https://www.section508.gov)** - Federal accessibility standards
+- **[WebAIM](https://webaim.org)** - Web accessibility resources and guidelines
 
-This repository enhances these foundations with 46 professional skills, refined workflows, and integrated session management capabilities tailored for professional development environments.
+This repository enhances these foundations with 99 professional skills across 3 tiers, refined workflows, and integrated session management capabilities tailored for professional development environments.
 
 ## License
 

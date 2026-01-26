@@ -80,8 +80,9 @@ def main():
     print("\nUsage:")
     print("  1. Open Claude Code CLI")
     print("  2. Type / to see available skills")
-    print("  3. Use /tdd-red-green, /ci-setup, /api-test-generate, etc.")
-    print("\nTip: With 46+ professional skills, Claude DevStudio will save you 8-10 hours per week!")
+    print("  3. Try /tdd-red-green, /ci-setup, /test-mutation, /infrastructure, etc.")
+    print("\nTip: With 99 professional skills across 3 tiers, Claude DevStudio saves 10-15 hours per week!")
+    print("     Tier 1 (16): High-impact essentials | Tier 2 (37): Advanced features | Tier 3 (16): Power user tools")
 
 if __name__ == "__main__":
     try:

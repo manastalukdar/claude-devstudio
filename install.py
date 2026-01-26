@@ -80,8 +80,8 @@ def main():
     print("\nUsage:")
     print("  1. Open Claude Code CLI")
     print("  2. Type / to see available skills")
-    print("  3. Use /cleanproject, /commit, /refactor, etc.")
-    print("\nTip: Claude DevStudio will save you 4-5 hours per week!")
+    print("  3. Use /tdd-red-green, /ci-setup, /api-test-generate, etc.")
+    print("\nTip: With 46+ professional skills, Claude DevStudio will save you 8-10 hours per week!")
 
 if __name__ == "__main__":
     try:

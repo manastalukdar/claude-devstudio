@@ -62,7 +62,7 @@ python uninstall.py
 
 ## Skills
 
-30 professional skills optimized for Claude Code CLI's native capabilities with enhanced validation and refinement phases.
+46 professional skills optimized for Claude Code CLI's native capabilities with enhanced validation and refinement phases.
 
 **Invocation**: Skills are invoked using the `/skill-name` syntax (e.g., `/commit`, `/session-start`). These are Claude Skills as defined by Claude Code CLI.
 
@@ -83,6 +83,8 @@ python uninstall.py
 /implement url/path/feature      # Import and adapt code from any source with validation phase
 /refactor                        # Intelligent code restructuring with validation & de-para mapping
 /undo                           # Safe rollback with git checkpoint restore
+/tdd-red-green                   # Enforce true RED→GREEN→REFACTOR TDD workflow (NEW)
+/e2e-generate                    # Generate end-to-end tests with Playwright (NEW)
 ```
 
 ### 🛡️ Code Quality & Security
@@ -96,15 +98,18 @@ python uninstall.py
 /find-todos            # Locate and organize development tasks
 /create-todos          # Add contextual TODO comments based on analysis results
 /fix-todos             # Intelligently implement TODO fixes with context
+/dependency-audit      # Comprehensive dependency security and license audit (NEW)
+/secrets-scan          # Scan for exposed secrets/credentials/API keys (NEW)
 ```
 
-### 🔍 Advanced Analysis
+### 🔍 Advanced Analysis & Debugging
 
 ```bash
 /understand            # Analyze entire project architecture and patterns
 /explain-like-senior   # Senior-level code explanations with context
 /contributing          # Complete contribution readiness analysis
 /make-it-pretty        # Improve readability without functional changes
+/debug-systematic      # Systematic debugging workflow with hypothesis testing (NEW)
 ```
 
 ### 📋 Session & Project Management
@@ -120,6 +125,47 @@ python uninstall.py
 /sessions-init                  # Initialize and organize session directory structure
 /docs                          # Smart documentation management and updates
 /todos-to-issues               # Convert code TODOs to GitHub issues
+```
+
+### ⚙️ CI/CD & DevOps (NEW)
+
+```bash
+/ci-setup                      # Configure CI/CD pipelines (GitHub Actions, GitLab CI, CircleCI)
+/deploy-validate               # Pre-deployment validation (env config, deps, DB migrations, API compat)
+```
+
+### 🌐 API Development & Testing (NEW)
+
+```bash
+/api-test-generate             # Auto-generate comprehensive API tests for REST/GraphQL
+/api-validate                  # API contract validation and breaking change detection
+```
+
+### 🗄️ Database Management (NEW)
+
+```bash
+/migration-generate            # Generate database migrations from schema changes
+```
+
+### 🎨 Code Generation & Type Safety (NEW)
+
+```bash
+/types-generate                # Generate TypeScript types from schemas/APIs
+/changelog-auto                # Auto-generate changelogs from commit history
+```
+
+### 🤝 Collaboration & Planning (NEW)
+
+```bash
+/brainstorm                    # Interactive design refinement with structured exploration
+/write-plan                    # Create detailed implementation plans with task breakdown
+```
+
+### 🔌 MCP & Tool Integration (NEW)
+
+```bash
+/mcp-setup                     # Set up and configure MCP servers
+/tool-connect                  # Connect to external tools via MCP (GitHub, DB, APIs)
 ```
 
 ## Enhanced Features
@@ -359,8 +405,16 @@ Custom skills appear with a `(user)` tag in Claude Code CLI to distinguish them 
 | Issue prediction    | 60+ min     | 5-10 min              | ~50 min    |
 | TODO resolution     | 30-45 min   | 3-5 min               | ~35 min    |
 | Code adaptation     | 40-60 min   | 3-5 min               | ~45 min    |
+| CI/CD setup         | 45-60 min   | 3-5 min               | ~50 min    |
+| E2E test generation | 40-60 min   | 3-5 min               | ~45 min    |
+| API test generation | 35-50 min   | 3-5 min               | ~40 min    |
+| Deployment validation | 30-45 min | 2-3 min               | ~35 min    |
+| DB migration creation | 25-40 min | 2-3 min               | ~30 min    |
+| Type generation     | 20-35 min   | 1-2 min               | ~25 min    |
+| Secrets scanning    | 30-45 min   | 2-3 min               | ~35 min    |
+| Systematic debugging | 45-75 min  | 5-10 min              | ~50 min    |
 
-**Total: 4-5 hours saved per week with Claude DevStudio's professional-grade analysis**
+**Total: 8-10 hours saved per week with Claude DevStudio's professional-grade analysis and automation**
 
 ## Requirements
 
@@ -502,10 +556,43 @@ We welcome contributions that help developers save time. See [CONTRIBUTING.md](C
 
 This project builds upon and extends excellent work from the open-source community. We gratefully acknowledge the following projects that have contributed foundational concepts and implementations:
 
+### Core Framework
 - **[CCPlugins](https://github.com/brennercruvinel/CCPlugins)** - Professional skill framework and core development workflow skills
 - **[claude-sessions](https://github.com/iannuttall/claude-sessions)** - Session management system architecture and documentation patterns
 
-This repository enhances these foundations with additional skills, refined workflows, and integrated session management capabilities tailored for professional development environments.
+### Development Methodologies & Patterns
+- **[obra/superpowers](https://github.com/obra/superpowers)** - TDD methodology, RED/GREEN/REFACTOR workflow, YAGNI/DRY principles, and collaboration patterns
+- **[Anthropic Skills](https://github.com/anthropics/skills)** - Official Claude Skills examples and best practices
+- **[Model Context Protocol (MCP)](https://modelcontextprotocol.io)** - MCP integration standards and server specifications
+
+### Testing & Quality Assurance
+- **[Playwright](https://playwright.dev)** - E2E testing framework and browser automation patterns
+- **[Supertest](https://github.com/ladjs/supertest)** - API testing library and HTTP assertion patterns
+- **[FastAPI Testing Guide](https://fastapi.tiangolo.com/tutorial/testing/)** - API testing best practices for Python
+- **[Jest Documentation](https://jestjs.io)** - JavaScript testing framework patterns
+
+### API & Schema Standards
+- **[OpenAPI Specification](https://www.openapis.org)** - API contract validation and schema standards
+- **[GraphQL Code Generator](https://the-guild.dev/graphql/codegen)** - Type generation from GraphQL schemas
+- **[Prisma](https://www.prisma.io)** - Database schema and type generation patterns
+
+### CI/CD & DevOps
+- **[GitHub Actions Documentation](https://docs.github.com/en/actions)** - CI/CD pipeline best practices
+- **[GitLab CI Documentation](https://docs.gitlab.com/ee/ci/)** - GitLab CI/CD patterns
+- **[CircleCI Documentation](https://circleci.com/docs/)** - CircleCI configuration standards
+
+### Security & Code Quality
+- **[gitleaks](https://github.com/gitleaks/gitleaks)** - Secrets detection patterns
+- **[trufflehog](https://github.com/trufflesecurity/trufflehog)** - Credential scanning methodology
+- **[Snyk](https://snyk.io)** - Dependency security scanning patterns
+- **[OWASP Top 10](https://owasp.org/www-project-top-ten/)** - Security vulnerability standards
+
+### Standards & Conventions
+- **[Conventional Commits](https://www.conventionalcommits.org)** - Commit message format standards
+- **[Keep a Changelog](https://keepachangelog.com)** - Changelog generation standards
+- **[Semantic Versioning](https://semver.org)** - Version management standards
+
+This repository enhances these foundations with 46 professional skills, refined workflows, and integrated session management capabilities tailored for professional development environments.
 
 ## License
 

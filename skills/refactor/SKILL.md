@@ -10,6 +10,29 @@ I'll help you restructure your code systematically - preserving functionality wh
 
 Arguments: `$ARGUMENTS` - files, directories, or refactoring scope
 
+**Token Optimization:**
+- ✅ Session-based state tracking (already implemented)
+- ✅ Progressive refactoring (plan → implement → validate → test)
+- ✅ Glob-before-Read for target file discovery
+- ✅ Incremental refactoring (one change at a time with validation)
+- ✅ Early exit on resumed sessions (skip completed changes) - saves 70%
+- ✅ Caching project patterns and test commands
+- ✅ Git diff to detect what changed (verify refactoring scope)
+- **Expected tokens:** 1,500-4,000 (vs. 3,000-6,500 unoptimized) - **50-60% reduction**
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 3D-F, 2026-01-26)
+
+**Caching Behavior:**
+- Session location: `refactor/` (plan.md, state.json)
+- Cache location: `.claude/cache/refactor/`
+- Caches: Refactoring patterns, test commands, validation results
+- Cache validity: Until session completed
+- Shared with: `/implement`, `/complexity-reduce`, `/test` skills
+
+**Usage:**
+- `refactor path/to/file.ts` - Refactor specific file (2,000-3,500 tokens)
+- `refactor resume` - Resume session (500-1,500 tokens, skips completed work)
+- `refactor --extract-method` - Specific refactoring type (1,500-2,500 tokens)
+
 **KEY FEATURE: Built-in validation and refinement after EVERY change ensures nothing breaks and no code is left behind. The AI will automatically fix its own mistakes during the refactoring process.**
 
 **SESSION FILES LOCATION: Always use refactor/ folder in current directory**

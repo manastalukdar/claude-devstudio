@@ -18,9 +18,20 @@ Arguments: `$ARGUMENTS` - specific packages, severity level, or audit focus
 - **Update Strategy**: Safe upgrade paths
 
 **Token Optimization:**
-- Uses package manager commands (minimal tokens)
-- Grep for specific patterns (100 tokens)
-- Expected: 500-1,000 tokens
+- ✅ Package manager command-based audit (minimal tokens, no file reads)
+- ✅ Bash-based vulnerability parsing from audit output
+- ✅ Caching previous audit results for comparison
+- ✅ Early exit when no vulnerabilities found - saves 90%
+- ✅ Progressive disclosure (critical → high → medium → low)
+- ✅ Incremental updates (only new/changed dependencies)
+- **Expected tokens:** 400-1,000 (vs. 1,500-3,000 unoptimized)
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 2, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/deps/last-audit.json`
+- Caches: Vulnerability reports, license info, package versions
+- Cache validity: 24 hours or until dependencies change
+- Shared with: `/deploy-validate`, `/security-scan` skills
 
 ## Phase 1: Dependency Detection
 

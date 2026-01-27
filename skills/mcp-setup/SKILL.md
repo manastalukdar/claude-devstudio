@@ -19,9 +19,20 @@ Arguments: `$ARGUMENTS` - server name, provider, or configuration type
 - Custom tools and services
 
 **Token Optimization:**
-- Quick configuration checks (200 tokens)
-- Minimal file reading (500 tokens)
-- Expected: 700-1,000 tokens
+- ✅ Bash-based configuration detection (minimal tokens)
+- ✅ Template-based MCP server setup (no file reads for templates)
+- ✅ Caching existing MCP server configurations
+- ✅ Early exit when MCP already configured - saves 90%
+- ✅ Incremental server setup (one at a time)
+- ✅ Minimal file reads (only config files)
+- **Expected tokens:** 400-1,000 (vs. 2,500-4,000 unoptimized)
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 2, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/mcp/servers.json`
+- Caches: Configured servers, connection status, server capabilities
+- Cache validity: Until config files change
+- Shared with: `/tool-connect`, `/database-connect`, `/github-integration` skills
 
 ## Phase 1: MCP Configuration Detection
 

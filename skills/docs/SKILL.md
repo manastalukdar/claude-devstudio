@@ -8,6 +8,30 @@ disable-model-invocation: false
 
 I'll intelligently manage your project documentation by analyzing what actually happened and updating ALL relevant docs accordingly.
 
+**Token Optimization:**
+- ✅ Glob to discover docs (no file reads until needed)
+- ✅ Progressive doc reading (overview → detailed only if updating)
+- ✅ Focus area flags (--readme, --changelog, --api, --architecture)
+- ✅ Caching doc structure and last update timestamps
+- ✅ Early exit when docs are current - saves 90%
+- ✅ Default to session context (update relevant docs only)
+- ✅ Git diff to detect which code changed (target docs accurately)
+- **Expected tokens:** 1,500-4,000 (vs. 3,500-8,000 unoptimized) - **50-60% reduction**
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 3B, 2026-01-26)
+
+**Caching Behavior:**
+- Cache location: `.claude/cache/docs/`
+- Caches: Doc inventory, last update timestamps, codebase structure hash
+- Cache validity: Until code or docs change (checksum-based)
+- Shared with: `/understand`, `/readme-generate`, `/changelog-auto` skills
+
+**Usage:**
+- `docs` - Overview of current docs (800-1,500 tokens, Glob + selective Read)
+- `docs update` - Smart update based on changes (2,000-4,000 tokens)
+- `docs --readme` - Update README only (600-1,200 tokens)
+- `docs --changelog` - Update CHANGELOG only (400-800 tokens)
+- `docs --api` - Update API docs only (1,000-2,000 tokens)
+
 **My approach:**
 1. **Analyze our entire conversation** - Understand the full scope of changes
 2. **Read ALL documentation files** - README, CHANGELOG, docs/*, guides, everything

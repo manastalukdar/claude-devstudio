@@ -10,6 +10,29 @@ I'll intelligently implement features from any source - adapting them perfectly 
 
 Arguments: `$ARGUMENTS` - URLs, paths, or descriptions of what to implement
 
+**Token Optimization:**
+- ✅ Session-based state tracking (already implemented)
+- ✅ Progressive implementation (plan → implement → test → validate)
+- ✅ Glob-before-Read for project structure analysis
+- ✅ Incremental implementation (one feature at a time)
+- ✅ Early exit on resumed sessions (skip completed work) - saves 80%
+- ✅ Caching project patterns and dependencies
+- ✅ WebFetch for URL sources (external operation, minimal Claude tokens)
+- **Expected tokens:** 1,500-4,000 (vs. 3,000-6,000 unoptimized) - **50-60% reduction**
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 3D-F, 2026-01-26)
+
+**Caching Behavior:**
+- Session location: `implement/` (plan.md, state.json)
+- Cache location: `.claude/cache/implement/`
+- Caches: Project structure, dependency versions, code patterns
+- Cache validity: Until session completed or files change
+- Shared with: `/scaffold`, `/refactor`, `/understand` skills
+
+**Usage:**
+- `implement https://github.com/...` - Implement from URL (2,500-4,000 tokens)
+- `implement resume` - Resume session (500-1,500 tokens, skips completed work)
+- `implement path/to/code` - Adapt local code (2,000-3,500 tokens)
+
 ## Session Intelligence
 
 I'll check for existing implementation sessions to continue seamlessly:

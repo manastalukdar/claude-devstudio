@@ -10,6 +10,29 @@ I'll help you explore and refine design ideas through structured brainstorming s
 
 Arguments: `$ARGUMENTS` - design challenge, feature idea, or problem to solve
 
+**Token Optimization:**
+- ✅ Session-based idea tracking (already implemented)
+- ✅ Incremental idea generation (one at a time, not all at once)
+- ✅ Caching previous ideas and evaluations
+- ✅ Focused exploration (target area specified)
+- ✅ Progressive depth (high-level → detailed only if needed)
+- ✅ Template-based idea formats (no repeated explanations)
+- **Expected tokens:** 1,200-2,500 (vs. 3,000-5,000 unoptimized)
+- **Optimization status:** ✅ Optimized (Phase 2 Batch 2, 2026-01-26)
+
+**Caching Behavior:**
+- Session location: `brainstorm/` (plan.md, state.json, ideas.md)
+- Cache location: `.claude/cache/brainstorm/session-state.json`
+- Caches: Generated ideas, evaluations, decisions
+- Cache validity: Until session explicitly ended
+- Shared with: `/write-plan`, `/design-review` skills
+
+**Usage:**
+- `brainstorm "feature idea"` - Start session (1,500-2,500 tokens)
+- `brainstorm resume` - Continue session (800-1,500 tokens)
+- `brainstorm export` - Export ideas (500-1,000 tokens)
+- `brainstorm decide` - Make decision (600-1,200 tokens)
+
 ## Session Intelligence
 
 I'll maintain brainstorming session continuity:

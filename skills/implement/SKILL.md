@@ -10,28 +10,186 @@ I'll intelligently implement features from any source - adapting them perfectly 
 
 Arguments: `$ARGUMENTS` - URLs, paths, or descriptions of what to implement
 
-**Token Optimization:**
-- ✅ Session-based state tracking (already implemented)
-- ✅ Progressive implementation (plan → implement → test → validate)
-- ✅ Glob-before-Read for project structure analysis
-- ✅ Incremental implementation (one feature at a time)
-- ✅ Early exit on resumed sessions (skip completed work) - saves 80%
-- ✅ Caching project patterns and dependencies
-- ✅ WebFetch for URL sources (external operation, minimal Claude tokens)
-- **Expected tokens:** 1,500-4,000 (vs. 3,000-6,000 unoptimized) - **50-60% reduction**
-- **Optimization status:** ✅ Optimized (Phase 2 Batch 3D-F, 2026-01-26)
+## Token Optimization Strategy
 
-**Caching Behavior:**
-- Session location: `implement/` (plan.md, state.json)
-- Cache location: `.claude/cache/implement/`
-- Caches: Project structure, dependency versions, code patterns
-- Cache validity: Until session completed or files change
-- Shared with: `/scaffold`, `/refactor`, `/understand` skills
+**Target: 60% reduction (4,000-6,000 → 1,500-2,500 tokens)**
 
-**Usage:**
-- `implement https://github.com/...` - Implement from URL (2,500-4,000 tokens)
-- `implement resume` - Resume session (500-1,500 tokens, skips completed work)
-- `implement path/to/code` - Adapt local code (2,000-3,500 tokens)
+### Core Optimization Patterns
+
+**1. Focused Scope (40% savings)**
+- Implement ONE specific feature at a time
+- Reject vague requests ("add auth system" → ask which auth component)
+- Use `--feature=X` flag to constrain scope
+- Skip related but non-essential features
+- Example: Implement login form only, not entire auth flow
+
+**2. Architecture Context from Cache (30% savings)**
+- Load project patterns from `.claude/cache/understand/`
+- Reuse dependency analysis from cached `/understand` results
+- Skip architecture discovery if cache exists and is recent
+- Share technology stack detection with `/scaffold`
+- Only re-analyze if source requires new dependencies
+
+**3. Template-Based Implementation (20% savings)**
+- Match common patterns (React component, Express route, database model)
+- Apply project-specific templates from cache
+- Generate code from patterns instead of reading examples
+- Use framework conventions (Next.js page structure, Django views)
+
+**4. Progressive Implementation (MVP first) (25% savings)**
+- Implement minimal viable feature first (core functionality only)
+- Skip: edge cases, error handling, validation (add in iteration 2)
+- Validate MVP works before enhancement
+- Use `--mvp` flag for fastest implementation
+- Example: Basic form submit before validation/error states
+
+**5. Git Diff for Context (50% savings)**
+- Use `git diff main...HEAD` to see recent changes
+- Understand existing patterns from recent work
+- Skip reading files if git diff shows relevant code
+- Leverage commit messages for implementation context
+
+**6. Session State for Multi-Step (80% savings on resume)**
+- Track implementation progress in `implement/state.json`
+- Resume sessions skip completed phases entirely
+- Cache source analysis, don't re-fetch URLs
+- Store dependency decisions, reuse in subsequent steps
+
+**7. WebFetch for External Sources (90% savings)**
+- WebFetch fetches URL content outside Claude context
+- Only small prompt + response counted in tokens
+- Analyze GitHub/GitLab repos without reading in Claude
+- Cache fetched content for entire session
+
+**8. Incremental File Updates (40% savings)**
+- Edit existing files with surgical changes
+- Never re-read entire file if only updating one function
+- Use Grep to locate exact integration points
+- Write minimal diff-style changes
+
+### Optimization Workflow
+
+**Initial Implementation (2,000-2,500 tokens):**
+```bash
+# 1. Check session state (50 tokens)
+Read implement/state.json OR create new session
+
+# 2. Quick scope validation (100 tokens)
+If args are vague → ask for specific feature/file
+
+# 3. Load architecture cache (200 tokens)
+Read .claude/cache/understand/project-summary.json
+Read .claude/cache/understand/dependencies.json
+
+# 4. Source analysis (500-1,000 tokens)
+If URL → WebFetch (external, ~50 tokens)
+If local path → Glob pattern → Read only target files
+Cache source analysis in implement/source-analysis.md
+
+# 5. Template matching (300 tokens)
+Match source to known patterns (component, route, model, etc.)
+Apply project-specific templates from cache
+Generate implementation plan from template
+
+# 6. MVP implementation (800-1,200 tokens)
+Implement core feature only
+Skip: validation, error handling, edge cases
+Use Edit for targeted file changes
+Update implement/state.json with progress
+
+# 7. Validation checkpoint (200 tokens)
+Run tests if they exist
+Document next iteration in state
+```
+
+**Session Resume (500-800 tokens):**
+```bash
+# 1. Load state (50 tokens)
+Read implement/state.json
+Check completed phases
+
+# 2. Skip completed work (0 tokens)
+If source analyzed → skip
+If MVP implemented → skip to enhancement
+
+# 3. Continue from checkpoint (450-750 tokens)
+Load cached decisions
+Apply next iteration (validation, error handling)
+Update state with new progress
+```
+
+**Enhancement Iteration (1,000-1,500 tokens):**
+```bash
+# 1. Load MVP context (100 tokens)
+Read implement/state.json
+Git diff to see MVP changes
+
+# 2. Add robustness (600-1,000 tokens)
+Error handling, validation, edge cases
+Based on MVP implementation patterns
+Use Edit for targeted enhancements
+
+# 3. Testing & validation (300-400 tokens)
+Run test suite
+Update documentation
+Mark implementation complete
+```
+
+### Token Budget by Operation
+
+| Operation | Unoptimized | Optimized | Savings |
+|-----------|-------------|-----------|---------|
+| **New Implementation** | 4,000-6,000 | 1,500-2,500 | 60-62% |
+| Initial source analysis | 1,500 | 500 | 67% |
+| Project architecture | 1,000 | 200 | 80% |
+| Code generation | 1,500 | 800 | 47% |
+| **Session Resume** | 2,000-3,000 | 500-800 | 73-75% |
+| State loading | 500 | 50 | 90% |
+| Skip completed phases | 1,500 | 0 | 100% |
+| Continue work | 1,000 | 450-750 | 25-55% |
+| **URL Implementation** | 3,000-5,000 | 1,200-2,000 | 60% |
+| WebFetch source | 2,000 | 50 | 97% |
+| Analysis + implement | 1,000-3,000 | 1,150-1,950 | 15-35% |
+| **Enhancement Phase** | 2,000-3,000 | 1,000-1,500 | 50% |
+| Context loading | 800 | 100 | 87% |
+| Implementation | 1,200-2,200 | 900-1,400 | 25-36% |
+
+### Caching Strategy
+
+**Session Files (local project):**
+- `implement/state.json` - Current phase, completed steps, cached decisions
+- `implement/plan.md` - Implementation plan with progress tracking
+- `implement/source-analysis.md` - Analyzed source requirements (cached)
+
+**Shared Cache Files (`.claude/cache/`):**
+- `understand/project-summary.json` - Architecture patterns, tech stack
+- `understand/dependencies.json` - Installed packages and versions
+- `understand/code-patterns.json` - Project-specific conventions
+- `scaffold/templates/` - Framework-specific templates
+
+**Cache Validity:**
+- Session cache: Valid until implementation complete or files change
+- Shared cache: Valid until dependencies/structure changes
+- Source analysis: Valid for entire session (never re-fetch URLs)
+
+### Optimization Commands
+
+**Explicit Optimization Flags:**
+```bash
+/implement --feature=login-form https://...  # Focused scope
+/implement --mvp https://...                 # MVP only, skip edge cases
+/implement resume                            # Auto-resume with cached state
+/implement --use-cache                       # Force use cached architecture
+```
+
+**Expected Token Usage:**
+- `implement [new source]` - 1,500-2,500 tokens (focused implementation)
+- `implement resume` - 500-800 tokens (skip completed work)
+- `implement --mvp [source]` - 1,200-1,800 tokens (minimal feature)
+- `implement finish` - 1,000-1,500 tokens (enhancement phase)
+
+**Optimization Status:** ✅ Optimized (Phase 2 Batch 3D-F, 2026-01-26)
+**Average Reduction:** 60% (4,000-6,000 → 1,500-2,500 tokens)
 
 ## Session Intelligence
 

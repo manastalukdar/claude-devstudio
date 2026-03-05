@@ -1,14 +1,14 @@
 # Contributing to Claude DevStudio
 
-Thanks for your interest in improving Claude DevStudio! This development studio helps developers save 4-5 hours per week with professional automation.
+Thanks for your interest in improving Claude DevStudio! This development studio helps developers save 10-15 hours per week with professional automation.
 
 ## Branch Strategy
 
 We keep it simple:
 
-1. **`main`** - synced with `https://github.com/brennercruvinel/CCPlugins`
-2. **`running`** - stable code, always working. My daily driver.
-3. **`add/your-feature`** - Any contribution (new command, fix, docs)
+1. **`main`** - primary stable branch; all PRs merge here
+2. **`running`** - author's daily driver; used as download source for testing
+3. **`add/your-feature`** - any contribution (new skill, fix, docs)
 
 ### Workflow Example
 
@@ -80,7 +80,7 @@ python install.py  # Test your changes
 2. **Test your changes** - Run `python install.py` to verify
 3. **Keep it simple** - This project values pragmatism over perfection
 4. **Update README** - Add your skill to the appropriate section with a one-line description
-5. **Update install scripts** - Add skill name to arrays in install.sh and uninstall scripts
+5. **Update install scripts** - `install.sh` uses dynamic GitHub API discovery — no manual update needed. Verify your skill directory exists at `skills/<name>/SKILL.md`
 6. **Quick merges** - If it works and helps, we merge it
 
 ### Commit Messages
@@ -97,7 +97,7 @@ Keep them simple:
 - [ ] Works without configuration
 - [ ] Handles common edge cases
 - [ ] Clear, actionable output
-- [ ] Under 100 lines (excluding frontmatter)
+- [ ] Under 100 lines of instructions (excluding frontmatter, code blocks, and Token Optimization section)
 - [ ] Includes proper YAML frontmatter
 - [ ] Includes validation phase for complex skills
 - [ ] No emojis in git-related output
@@ -138,6 +138,20 @@ Use proper frontmatter settings:
 
 - **Manual-only** (`disable-model-invocation: true`): Skills with side effects like `/commit`, `/deploy`
 - **Auto-invokable** (`disable-model-invocation: false`): Skills Claude can use automatically like `/review`, `/test`
+- **Agent-consumed** (`user-invocable: false`): Skills used internally by agents or commands, hidden from the user menu. Place these in `.claude/skills/<name>/SKILL.md` rather than `skills/<name>/SKILL.md`.
+
+### Skill Tier Assignment
+
+When contributing a new skill, assign it to the appropriate tier:
+
+| Tier | Criteria | Examples |
+|---|---|---|
+| **Core** | Foundational workflows every developer uses daily | `/commit`, `/review`, `/test`, `/session-*` |
+| **Tier 1** | High-impact tools with broad applicability; saves 15+ min/use | `/tdd-red-green`, `/ci-setup`, `/api-test-generate` |
+| **Tier 2** | Advanced features for professional workflows; saves 5-15 min/use | `/test-antipatterns`, `/query-optimize`, `/bundle-analyze` |
+| **Tier 3** | Power-user and specialized tools; high value for specific scenarios | `/test-mutation`, `/infrastructure`, `/parallel-agents` |
+
+Update the README.md table to include your skill under the correct tier section.
 
 ## What We're Looking For
 

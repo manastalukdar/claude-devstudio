@@ -23,3 +23,10 @@ desktop.ini
 *.log
 *.tmp
 .cache/
+
+# Claude hooks runtime artifacts
+.claude/hooks/hooks-log.jsonl
+.claude/session.log
+
+# Claude cache
+.claude/cache/

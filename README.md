@@ -21,6 +21,7 @@ Claude DevStudio is the most comprehensive development environment for Claude Co
 
 - [🚀 Installation](#installation) - Get started in 30 seconds
 - [💻 Skills](#skills) - See all available skills
+- [🏗️ Project Infrastructure](#project-infrastructure) - Commands, agents, hooks, MCP, rules
 - [🔧 How It Works](#how-it-works) - Understanding the magic
 - [📚 Session Management](#session-management-workflow) - Professional development tracking
 - [🧠 Technical Notes](#technical-notes) - Why conversational design matters
@@ -209,6 +210,96 @@ Professional development session tracking system:
 - **Progress Tracking**: Timestamped updates with git state and accomplishments
 - **Knowledge Transfer**: Enable team collaboration with detailed session histories
 
+## Project Infrastructure
+
+Beyond skills, Claude DevStudio ships a complete project-level infrastructure that wires up commands, agents, hooks, MCP servers, and auto-loaded rules.
+
+### Commands
+
+Commands (`.claude/commands/`) are high-level orchestrators that sequence multiple skills and agents, aggregate results, and manage user interaction. Invoke with `/command-name`.
+
+| Command | Description |
+|---|---|
+| `/quality-pipeline` | Runs `/security-scan` → `/review` → `/test` in sequence; writes combined report to `reports/quality-pipeline-<date>.md` |
+| `/release-workflow` | Full release flow: `/deploy-validate` → `/changelog-auto` → version bump → `/commit`; prompts for version type |
+| `/session-daily` | Daily startup: start session, git status, find todos, project health check, security pulse, daily briefing |
+
+### Agents
+
+Agents (`.claude/agents/`) are specialized workers with restricted tool sets. They are invoked by commands or directly, run in isolated context, and cannot perform operations outside their defined tool scope.
+
+| Agent | Tools | Purpose |
+|---|---|---|
+| `code-reviewer` | Read, Grep, Glob, WebFetch (read-only) | Deep code review; backs the `/review` skill |
+| `security-auditor` | Read, Grep, Glob, Bash (grep/git log only) | Security scanning; backs `/security-scan`, `/owasp-check`, `/secrets-scan` |
+| `test-runner` | Read, Bash (test commands only) | Test execution; backs `/test`, `/tdd-red-green`, `/test-coverage` |
+
+Agents use a **self-evolution pattern**: after each run they may update their own instructions based on discovered patterns, improving future executions.
+
+### Project-Local Skills
+
+`.claude/skills/` holds internal skills consumed by agents and commands. These are hidden from the user menu (`user-invocable: false`) and are distinct from the 99 user-facing skills in `skills/`.
+
+| Skill | Purpose |
+|---|---|
+| `project-health` | Checks skill count consistency across docs, stale sessions, cache size, install script syntax |
+| `skill-validator` | Validates new skills: YAML frontmatter, Token Optimization section, line limit, naming conventions |
+
+### Hooks
+
+Claude DevStudio registers handlers for all 19 Claude Code hook events via `.claude/hooks/scripts/hooks.py`. Hooks fire automatically — no user action required.
+
+**What hooks do:**
+
+- Play audio notifications on tool use, session start/end, errors, and task completion (platform-aware: `afplay` on macOS, `paplay`/`aplay`/`ffplay` on Linux, `winsound` on Windows)
+- Log every event to `.claude/hooks/hooks-log.jsonl` with timestamp, event type, and tool name
+- Support agent-specific sound mapping via `--agent=<name>` argument
+- Degrade gracefully when no audio player is available (log only)
+
+**Supported hook events:**
+
+```
+PreToolUse      PostToolUse      PostToolUseFailure   PermissionRequest
+UserPromptSubmit  Notification    Stop                 SubagentStart
+SubagentStop    PreCompact       SessionStart          SessionEnd
+Setup           TeammateIdle    TaskCompleted         ConfigChange
+WorktreeCreate  WorktreeRemove  InstructionsLoaded
+```
+
+See [.claude/hooks/README.md](.claude/hooks/README.md) for configuration details.
+
+### Auto-Loaded Rules
+
+`.claude/rules/` contains Markdown rule files that Claude Code auto-loads for every conversation. Rules extend CLAUDE.md without bloating it beyond the ~200 line best-practice limit.
+
+| Rule File | Contents |
+|---|---|
+| `skill-development.md` | YAML frontmatter fields, skill sections, naming conventions, tier criteria, token budget table |
+| `git-workflow.md` | AI credential prohibition, conventional commits format, checkpoint rule, branch strategy |
+| `code-quality.md` | Python/Shell/Markdown standards, no emoji, Edit-before-Write, install script sync rule |
+| `token-optimization.md` | 8 optimization patterns with % savings, mandatory Token Optimization section template |
+
+### MCP Servers
+
+`.mcp.json` configures project-scoped MCP servers available in every Claude Code session:
+
+| Server | Package | Purpose |
+|---|---|---|
+| `context7` | `@upstash/context7-mcp` | Up-to-date library docs — prevents hallucinated APIs |
+| `playwright` | `@playwright/mcp` | Browser automation for `/playwright-automate` and `/e2e-generate` |
+| `github` | `@modelcontextprotocol/server-github` | GitHub automation; requires `GITHUB_TOKEN` env var |
+| `filesystem` | `@modelcontextprotocol/server-filesystem` | Inspect `~/.claude/skills/` without Bash |
+
+### Project Settings
+
+`.claude/settings.json` applies project-level Claude Code configuration:
+
+- **Model**: `claude-sonnet-4-6`
+- **Output style**: concise (matches project brevity preference)
+- **Permissions**: pre-approved `Bash(git:*)`, `Bash(grep:*)`, `Edit(**)`, `Write(**)` etc.; `ask` for `Bash(rm:*)`, `Bash(git push:*)`, `Bash(sudo:*)`
+- **All 19 hooks** registered to `.claude/hooks/scripts/hooks.py`
+- **Plans directory**: `./reports`
+
 ## Real World Example
 
 ### Before `/cleanproject`
@@ -235,13 +326,23 @@ src/
 
 ### High-Level Architecture
 
-Claude DevStudio transforms Claude Code CLI into an intelligent development assistant through a sophisticated yet elegant architecture:
+Claude DevStudio transforms Claude Code CLI into an intelligent development assistant through a three-tier Command → Agent → Skill architecture:
 
 ```plaintext
-Developer → /skill → Claude Code CLI → Skill Definition → Intelligent Execution
-    ↑                                                                    ↓
-    ←←←←←←←←←←←←←←←←← Clear Feedback & Results ←←←←←←←←←←←←←←←←←←←
+Developer
+    │
+    ├─ /command   → Command (.claude/commands/) → orchestrates multiple agents/skills
+    │                        │
+    │                        ├─ Agent (.claude/agents/) → specialized worker with restricted tools
+    │                        │          │
+    │                        └─────────→└─ Skill (skills/ or .claude/skills/) → atomic capability
+    │
+    └─ /skill     → Skill (skills/) → direct execution
+    ↑                                                    ↓
+    ←←←←←←←←←←←←←←←←← Clear Feedback & Results ←←←←←←←←
 ```
+
+Hook events fire automatically at each lifecycle point (tool use, session start/end, etc.), enabling notifications and logging without user intervention.
 
 ### Execution Flow
 
@@ -564,6 +665,7 @@ This project builds upon and extends excellent work from the open-source communi
 ### Core Framework
 - **[CCPlugins](https://github.com/brennercruvinel/CCPlugins)** - Professional skill framework and core development workflow skills
 - **[claude-sessions](https://github.com/iannuttall/claude-sessions)** - Session management system architecture and documentation patterns
+- **[claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice)** by shanraisshan - Command/Agent/Skill architecture patterns, hooks infrastructure design, MCP server configuration, and advanced Claude Code settings best practices
 
 ### Development Methodologies & Patterns
 - **[obra/superpowers](https://github.com/obra/superpowers)** - TDD methodology, RED/GREEN/REFACTOR workflow, YAGNI/DRY principles, and collaboration patterns

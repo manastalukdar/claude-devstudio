@@ -7,41 +7,27 @@ echo "Claude DevStudio Uninstaller"
 echo "============================"
 
 SKILLS_DIR="$HOME/.claude/skills"
+MANIFEST_FILE="$SKILLS_DIR/.claude-devstudio-manifest"
 COMMANDS_DIR="$HOME/.claude/commands"
 
-# List of Claude DevStudio skills
-SKILLS=(
-    "cleanproject"
-    "commit"
-    "contributing"
-    "create-todos"
-    "docs"
-    "explain-like-senior"
-    "find-todos"
-    "fix-imports"
-    "fix-todos"
-    "format"
-    "implement"
-    "make-it-pretty"
-    "predict-issues"
-    "refactor"
-    "remove-comments"
-    "review"
-    "scaffold"
-    "security-scan"
-    "session-current"
-    "session-end"
-    "session-help"
-    "session-list"
-    "session-resume"
-    "session-start"
-    "session-update"
-    "sessions-init"
-    "test"
-    "todos-to-issues"
-    "understand"
-    "undo"
-)
+# Load skill list from manifest (written by install.sh)
+# Falls back to a minimal legacy list if manifest doesn't exist
+if [ -f "$MANIFEST_FILE" ]; then
+    echo "[INFO] Loading skill list from manifest..."
+    mapfile -t SKILLS < "$MANIFEST_FILE"
+    echo "[INFO] Found ${#SKILLS[@]} skills to remove."
+else
+    echo "[WARN] No manifest found at $MANIFEST_FILE — using legacy skill list."
+    echo "[WARN] Skills added after the original 30 may not be removed."
+    SKILLS=(
+        "cleanproject" "commit" "contributing" "create-todos" "docs"
+        "explain-like-senior" "find-todos" "fix-imports" "fix-todos" "format"
+        "implement" "make-it-pretty" "predict-issues" "refactor" "remove-comments"
+        "review" "scaffold" "security-scan" "session-current" "session-end"
+        "session-help" "session-list" "session-resume" "session-start" "session-update"
+        "sessions-init" "test" "todos-to-issues" "understand" "undo"
+    )
+fi
 
 # Legacy command files
 LEGACY_COMMANDS=(
@@ -156,6 +142,9 @@ if [ -d "$CACHE_DIR" ] || [ -d "$BACKUP_DIR" ]; then
         [ -d "$BACKUP_DIR" ] && rm -rf "$BACKUP_DIR" && echo "  - Removed backups directory"
     fi
 fi
+
+# Remove manifest file
+[ -f "$MANIFEST_FILE" ] && rm "$MANIFEST_FILE" && echo "  - Removed manifest file"
 
 TOTAL_REMOVED=$((REMOVED_SKILLS + REMOVED_LEGACY))
 echo "[SUCCESS] Uninstalled $REMOVED_SKILLS skills and $REMOVED_LEGACY legacy commands ($TOTAL_REMOVED total)"

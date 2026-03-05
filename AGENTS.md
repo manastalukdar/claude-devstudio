@@ -13,7 +13,7 @@ This document provides guidelines for AI assistants (particularly Claude Code) w
 
 ## Project Identity
 
-**Claude DevStudio** is a professional development environment that extends Claude Code CLI with 30 intelligent skills (formerly called slash commands) for automated workflows, code quality analysis, and session management.
+**Claude DevStudio** is a professional development environment that extends Claude Code CLI with 99 professional skills across 3 tiers for automated workflows, code quality analysis, and session management.
 
 **Core Philosophy**: Time-saving automation with safety-first design and professional-grade code quality.
 
@@ -66,7 +66,8 @@ This document provides guidelines for AI assistants (particularly Claude Code) w
 - Installation copies from `skills/` to `~/.claude/skills/`
 - Uninstallation removes from `~/.claude/skills/` (and legacy `~/.claude/commands/` if present)
 - Test installation on multiple platforms when possible
-- Ensure all 30 skills are included in installation manifests
+- `install.sh` and `uninstall.sh` use dynamic discovery via the GitHub API — no manual array update needed when adding new skills
+- Verify dynamic discovery works after adding a new skill: `ls skills/<new-skill>/SKILL.md`
 
 ### Session Management
 
@@ -135,6 +136,7 @@ Any risks or precautions
 ```
 
 **YAML Frontmatter Fields**:
+
 - `name`: Skill name (lowercase, hyphens, max 64 chars)
 - `description`: What it does and when to use it (helps Claude decide when to invoke)
 - `disable-model-invocation`: Set to `true` for manual-only skills (side effects, user control)
@@ -195,6 +197,7 @@ If [error condition]:
 ### User Confirmation
 
 For destructive operations:
+
 1. Explain what will happen
 2. Ask for explicit confirmation
 3. Provide option to preview changes
@@ -203,6 +206,7 @@ For destructive operations:
 ### Progress Feedback
 
 For long-running operations:
+
 1. Show clear progress indicators
 2. Provide intermediate status updates
 3. Estimate completion when possible
@@ -244,6 +248,7 @@ For long-running operations:
 ### Asking Questions
 
 When clarification is needed:
+
 1. Ask specific, focused questions
 2. Provide context for why the information is needed
 3. Suggest reasonable defaults when applicable
@@ -252,6 +257,7 @@ When clarification is needed:
 ### Providing Options
 
 When multiple approaches are valid:
+
 1. Present 2-3 viable options
 2. Explain trade-offs clearly
 3. Recommend the best option with rationale
@@ -309,7 +315,7 @@ When multiple approaches are valid:
    - Add other frontmatter fields as needed
 3. Add skill markdown content following established patterns
 4. Test thoroughly with various scenarios
-5. Update installation scripts to include new skill (arrays in install.sh and uninstall scripts)
+5. Update installation scripts to include new skill (`install.sh` uses dynamic discovery — no manual array update needed; verify `skills/<name>/SKILL.md` exists)
 6. Document in README.md and CLAUDE.md (update skill count)
 7. Update this file if new patterns are introduced
 
@@ -325,11 +331,113 @@ When multiple approaches are valid:
 ### Framework-Specific Extensions
 
 When adding framework-specific features:
+
 - Keep core commands framework-agnostic
 - Create separate commands for framework-specific functionality
 - Auto-detect framework when possible
 - Gracefully handle absence of framework
 - Document framework requirements clearly
+
+## Subagent Orchestration Patterns
+
+### Three-Tier Architecture
+
+Claude DevStudio uses a Command → Agent → Skill hierarchy:
+
+- **Commands** (`.claude/commands/`): High-level orchestrators. Invoke agents and skills, manage user interaction, aggregate results.
+- **Agents** (`.claude/agents/`): Specialized workers with restricted tool sets and preloaded skills. Run in isolated context.
+- **Skills** (`skills/` or `.claude/skills/`): Atomic capability units. User-invocable or agent-consumed.
+
+### Running Skills in Subagents
+
+Use `context: fork` in YAML frontmatter to run a skill in an isolated subagent:
+
+```yaml
+---
+name: my-skill
+description: Runs in a subagent
+context: fork
+agent: general
+---
+```
+
+### Parallel Agent Pattern (Boris Cherny Workflow)
+
+For independent parallel workstreams, use git worktrees + tmux:
+
+1. Create worktrees for each workstream: `git worktree add ../feature-a feature-a`
+2. Launch agents in separate tmux panes, each in their worktree
+3. Agents communicate via shared state in `.claude/sessions/` — never via direct bash IPC
+4. Use the `Task` tool (not `Bash`) for inter-agent communication
+5. Merge results when all agents complete
+
+Implemented by the `/parallel-agents` skill.
+
+### Agent Design Rules
+
+- Restrict tools to minimum required (e.g., read-only agents get `Read`, `Grep`, `Glob` only)
+- Preload relevant skills via `preloadedSkills` frontmatter
+- Never call `Bash(git commit)` from an agent — surface to user via Task output
+- Agent-level self-evolution: agents may update their own skill files after execution to improve future runs
+
+## Hooks System
+
+Claude Code supports 19 hook events that trigger shell commands at lifecycle points.
+
+### All 19 Hook Events
+
+| Event | Trigger | `once` |
+|---|---|---|
+| `PreToolUse` | Before any tool call | No |
+| `PostToolUse` | After successful tool call | No |
+| `PostToolUseFailure` | After failed tool call | No |
+| `PermissionRequest` | When Claude requests permission | No |
+| `UserPromptSubmit` | When user submits a message | No |
+| `Notification` | On notification events | No |
+| `Stop` | When Claude stops responding | No |
+| `SubagentStart` | When a subagent starts | No |
+| `SubagentStop` | When a subagent stops | No |
+| `PreCompact` | Before context compaction | Yes |
+| `SessionStart` | When a session begins | Yes |
+| `SessionEnd` | When a session ends | Yes |
+| `Setup` | On initial setup | Yes |
+| `TeammateIdle` | When a teammate goes idle | No |
+| `TaskCompleted` | When a task completes | No |
+| `ConfigChange` | On configuration change | No |
+| `WorktreeCreate` | When a worktree is created | No |
+| `WorktreeRemove` | When a worktree is removed | No |
+| `InstructionsLoaded` | When instructions are loaded | No |
+
+### Hook Configuration
+
+Hooks are defined in `.claude/settings.json` under the `hooks` key:
+
+```json
+"hooks": {
+  "PreToolUse": [{ "hooks": [{ "type": "command", "command": "python3 ${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/hooks.py", "timeout": 5000, "async": true }] }],
+  "SessionStart": [{ "hooks": [{ "type": "command", "command": "...", "timeout": 5000, "async": true, "once": true }] }]
+}
+```
+
+### Agent-Level Hooks
+
+Agents can define their own hooks in YAML frontmatter:
+
+```yaml
+hooks:
+  PostToolUse:
+    - type: command
+      command: echo "Tool used" >> .claude/hooks/hooks-log.jsonl
+```
+
+### DevStudio Hooks Script
+
+`.claude/hooks/scripts/hooks.py` handles all 19 events with:
+
+- Platform-aware audio notifications (afplay/paplay/aplay/winsound)
+- JSONL logging to `.claude/hooks/hooks-log.jsonl`
+- `--agent=<name>` argument for agent-specific sound mapping
+- Graceful degradation when no audio player is available
 
 ## Success Metrics
 
@@ -346,7 +454,10 @@ A successful interaction with Claude DevStudio:
 - **Main Documentation**: README.md
 - **Project Context**: CLAUDE.md
 - **Contribution Guidelines**: CONTRIBUTING.md
+- **Auto-Loaded Rules**: `.claude/rules/` (skill-development, git-workflow, code-quality, token-optimization)
+- **Token Optimization Guide**: TOKEN_OPTIMIZATION_GUIDE.md
 - **Session System**: docs/session-management/sessions.md
+- **Hooks System**: `.claude/hooks/README.md`
 - **Migration Documentation**: docs/migration/MIGRATION-PLAN.md
 - **License**: LICENSE (MIT)
 

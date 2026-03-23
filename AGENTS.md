@@ -348,6 +348,41 @@ Claude DevStudio uses a Command → Agent → Skill hierarchy:
 - **Agents** (`.claude/agents/`): Specialized workers with restricted tool sets and preloaded skills. Run in isolated context.
 - **Skills** (`skills/` or `.claude/skills/`): Atomic capability units. User-invocable or agent-consumed.
 
+See `/architecture:agent-command-system` for a full mid-session reference.
+
+### Current Agents
+
+| Agent | Model | Purpose |
+| --- | --- | --- |
+| `code-reviewer` | sonnet | Read-only code quality analysis |
+| `security-auditor` | sonnet | Vulnerability scanning, OWASP, secrets detection |
+| `test-runner` | sonnet | Test execution, failure analysis, TDD enforcement |
+| `claude-md-auditor` | opus | Documentation drift detection and repair (CLAUDE.md, AGENTS.md, README.md) |
+| `quality-fixer` | sonnet | Iterative lint/shellcheck/type fix cycles (max 5 iterations) |
+
+### Persistent Agent Memory
+
+Each agent accumulates institutional knowledge across conversations via a memory directory:
+
+```
+.claude/agent-memory/
+  claude-md-auditor/MEMORY.md
+  code-reviewer/MEMORY.md
+  security-auditor/MEMORY.md
+  test-runner/MEMORY.md
+  quality-fixer/MEMORY.md
+```
+
+Agents read their `MEMORY.md` at the start of each invocation and append new findings after completion.
+
+### Architecture Reference Commands
+
+| Command | Purpose |
+| --- | --- |
+| `/architecture:skill-system` | Skill tiers, YAML fields, naming, token budgets |
+| `/architecture:hook-events` | All 19 hook events, settings structure, compact reminder |
+| `/architecture:agent-command-system` | Command/Agent/Skill hierarchy, agent table, memory system |
+
 ### Running Skills in Subagents
 
 Use `context: fork` in YAML frontmatter to run a skill in an isolated subagent:

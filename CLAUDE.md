@@ -34,6 +34,23 @@ Project-local utility skills (used by agents/commands, not user-invocable) live 
 - **Agents** (`.claude/agents/`): Specialized sub-agents with scoped tools and preloaded skills
 - **Skills** (`skills/` + `.claude/skills/`): Reusable knowledge modules
 
+**Agents**: `code-reviewer`, `security-auditor`, `test-runner`, `claude-md-auditor`, `quality-fixer`
+
+**Architecture reference commands** (invoke mid-session for full reference):
+- `/architecture:skill-system` — tiers, YAML fields, naming, token budgets
+- `/architecture:hook-events` — all 19 hook events, compact reminder hook
+- `/architecture:agent-command-system` — Command/Agent/Skill hierarchy, agent memory
+
+### Persistent Agent Memory
+
+Each agent accumulates institutional knowledge across conversations:
+
+```
+.claude/agent-memory/<agent-name>/MEMORY.md
+```
+
+Loaded into the agent's context on every invocation. Agents append new findings after completion.
+
 ## Auto-Loaded Rules
 
 Detailed guidelines are in `.claude/rules/` (loaded automatically by Claude Code):

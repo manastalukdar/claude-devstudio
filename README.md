@@ -15,7 +15,7 @@ Professional development studio for Claude Code CLI with 99 enterprise-grade ski
 
 **📢 New Claude Skills Format**: Claude DevStudio has been updated to use the official Claude Skills format with proper YAML frontmatter and directory structure. Each skill now resides in its own directory (`skills/skill-name/SKILL.md`) following the [Agent Skills](https://agentskills.io) open standard.
 
-Claude DevStudio is the most comprehensive development environment for Claude Code CLI, featuring 99 professional skills across 3 tiers (Tier 1: 16 essentials, Tier 2: 37 advanced, Tier 3: 16 power-user tools). This intelligent development studio extends Claude with enterprise-grade workflows for TDD, CI/CD, API testing, performance optimization, security scanning, and advanced debugging - leveraging Claude's contextual understanding while delivering structured, predictable outcomes optimized for Opus 4 and Sonnet 4 models.
+Claude DevStudio is the most comprehensive development environment for Claude Code CLI, featuring 99 professional skills across 4 tiers (Tier 1: 16 essentials, Tier 2: 37 advanced, Tier 3: 16 power-user, Core: 30 foundation). This intelligent development studio extends Claude with enterprise-grade workflows for TDD, CI/CD, API testing, performance optimization, security scanning, and advanced debugging - leveraging Claude's contextual understanding while delivering structured, predictable outcomes optimized for Opus 4 and Sonnet 4 models.
 
 ## Quick Links
 
@@ -63,11 +63,12 @@ python uninstall.py
 
 ## Skills
 
-99 professional skills optimized for Claude Code CLI's native capabilities, organized across 3 tiers:
+99 professional skills optimized for Claude Code CLI's native capabilities, organized across 4 tiers:
 
 **🚀 Tier 1 (16 skills)**: High-impact essentials for immediate productivity
 **⚡ Tier 2 (37 skills)**: Advanced features for professional workflows
 **🔥 Tier 3 (16 skills)**: Power-user tools for specialized needs
+**🏛️ Core (30 skills)**: Foundational daily-driver skills
 
 **Invocation**: Skills are invoked using the `/skill-name` syntax (e.g., `/commit`, `/session-start`, `/test-mutation`). These are Claude Skills as defined by Claude Code CLI.
 
@@ -223,6 +224,9 @@ Commands (`.claude/commands/`) are high-level orchestrators that sequence multip
 | `/quality-pipeline` | Runs `/security-scan` → `/review` → `/test` in sequence; writes combined report to `reports/quality-pipeline-<date>.md` |
 | `/release-workflow` | Full release flow: `/deploy-validate` → `/changelog-auto` → version bump → `/commit`; prompts for version type |
 | `/session-daily` | Daily startup: start session, git status, find todos, project health check, security pulse, daily briefing |
+| `/architecture:skill-system` | Mid-session reference: skill tiers, YAML frontmatter fields, naming conventions, token budgets |
+| `/architecture:hook-events` | Mid-session reference: all 19 hook events, settings structure, compact reminder hook |
+| `/architecture:agent-command-system` | Mid-session reference: Command/Agent/Skill hierarchy, agent table, persistent memory |
 
 ### Agents
 
@@ -233,8 +237,10 @@ Agents (`.claude/agents/`) are specialized workers with restricted tool sets. Th
 | `code-reviewer` | Read, Grep, Glob, WebFetch (read-only) | Deep code review; backs the `/review` skill |
 | `security-auditor` | Read, Grep, Glob, Bash (grep/git log only) | Security scanning; backs `/security-scan`, `/owasp-check`, `/secrets-scan` |
 | `test-runner` | Read, Bash (test commands only) | Test execution; backs `/test`, `/tdd-red-green`, `/test-coverage` |
+| `claude-md-auditor` | Read, Grep, Glob, Bash, Edit | Documentation drift detection — cross-references skill counts, tier totals, and file references across CLAUDE.md, AGENTS.md, README.md and surgically corrects discrepancies |
+| `quality-fixer` | Read, Bash, Edit, Glob, Grep | Iterative lint/shellcheck/type fix cycles (max 5 iterations) for Python and shell scripts |
 
-Agents use a **self-evolution pattern**: after each run they may update their own instructions based on discovered patterns, improving future executions.
+Agents use a **persistent memory pattern**: each agent has a `.claude/agent-memory/<name>/MEMORY.md` file loaded on every invocation, accumulating institutional knowledge about the codebase across conversations.
 
 ### Project-Local Skills
 
@@ -254,6 +260,7 @@ Claude DevStudio registers handlers for all 19 Claude Code hook events via `.cla
 - Play audio notifications on tool use, session start/end, errors, and task completion (platform-aware: `afplay` on macOS, `paplay`/`aplay`/`ffplay` on Linux, `winsound` on Windows)
 - Log every event to `.claude/hooks/hooks-log.jsonl` with timestamp, event type, and tool name
 - Support agent-specific sound mapping via `--agent=<name>` argument
+- Inject a structured codebase reminder after context compaction events (`SessionStart` with `compact` matcher) to restore critical context lost during compaction
 - Degrade gracefully when no audio player is available (log only)
 
 **Supported hook events:**
@@ -666,6 +673,7 @@ This project builds upon and extends excellent work from the open-source communi
 - **[CCPlugins](https://github.com/brennercruvinel/CCPlugins)** - Professional skill framework and core development workflow skills
 - **[claude-sessions](https://github.com/iannuttall/claude-sessions)** - Session management system architecture and documentation patterns
 - **[claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice)** by shanraisshan - Command/Agent/Skill architecture patterns, hooks infrastructure design, MCP server configuration, and advanced Claude Code settings best practices
+- **[claude-devtools](https://github.com/matt1398/claude-devtools)** by matt1398 - Persistent agent memory pattern, compaction-aware SessionStart hook for context restoration, and architecture documentation as slash commands
 
 ### Development Methodologies & Patterns
 - **[obra/superpowers](https://github.com/obra/superpowers)** - TDD methodology, RED/GREEN/REFACTOR workflow, YAGNI/DRY principles, and collaboration patterns
